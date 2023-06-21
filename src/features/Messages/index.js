@@ -1,0 +1,77 @@
+import React, { useEffect, useState} from 'react';
+import { View, TextInput, Button, FlatList, Text, StyleSheet} from 'react-native';
+import io from 'socket.io-client';
+
+const SERVER_URL = 'http://192.168.1.155:3000'; // Socket sunucusunun URL'si
+
+const ChatApp = (props) => {
+  const [userid, setUserid] = useState(props.route.params.from_id);
+  const [tonid,setToid] = useState(props.route.params.to_id);
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  console.log(props.route.params)
+  // Socket bağlantısını başlat ve mesajları dinle
+  useEffect(() => {
+    const socket = io(SERVER_URL);
+    socket.emit('set username', userid);
+    // Mesaj alındığında gerçekleşecek olayları tanımla
+    socket.on('chat message', (data) => {
+      setMessages((prevMessages) => [...prevMessages, data]);
+    });
+
+    // Bağlantıyı sonlandır
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(()=>{
+    console.log(messages);
+  },[messages])
+
+  // Mesajı sunucuya gönder
+  const sendMessage = () => {
+    const socket = io(SERVER_URL);
+    const data = {
+      from: userid,
+      to: tonid, // Alıcı kullanıcı adı
+      message: message,
+    };
+    socket.emit('chat message', data);
+    setMessages((prevMessages) => [...prevMessages, data]);
+  };
+
+  return (
+    <View style={{ flex: 1, padding: 16 }}>
+      <TextInput
+        style={{ marginBottom: 8, height: 40, borderColor: 'gray', borderWidth: 1 }}
+        placeholder="Mesajınızı girin"
+        value={message}
+        onChangeText={setMessage}
+      />
+      <Button title="Gönder" onPress={sendMessage} disabled={!message} />
+      <FlatList
+        data={messages}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={{ marginBottom: 4 }}>
+            <Text>{item.from}: {item.message}</Text>
+          </View>
+        )}
+      />
+    </View>
+  );
+}
+const styles = StyleSheet.create({
+    container:{
+
+    },
+    input:{
+
+    },
+    messageContainer:{
+
+    },
+
+})
+export default ChatApp;
