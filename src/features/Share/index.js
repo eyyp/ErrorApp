@@ -1,42 +1,75 @@
-import { ScrollView, View,StyleSheet,TouchableOpacity,Text,Image, TextInput} from "react-native";
-import Left from '../../assets/icon/left.svg'
+import { ScrollView, View,StyleSheet,TouchableOpacity,Text,Image, TextInput,Modal} from "react-native";
+import { useState } from "react";
 import TabBar from "../../component/TabBar";
 const Share = () =>{
+    const [visible,setVisible] = useState(false)
     return(
         <ScrollView style={styles.Body}>
-                <TabBar title="Paylaşım Yap"/>
-                <ScrollView style={styles.categoryRow} horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <TouchableOpacity style={styles.categoryButton}>
-                        <Text style={styles.buttonText}>Genel Duyuru</Text>
+                <View>
+                    <TouchableOpacity style={styles.categoryButton} onPress={()=>setVisible(true)}>
+                        <Text style={styles.buttonText}>Konular</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton}>
-                        <Text style={styles.buttonText}>İş İlanları</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton}>
-                        <Text style={styles.buttonText}>Tanışma</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton}>
-                        <Text style={styles.buttonText}>Genel Duyuru</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton}>
-                        <Text style={styles.buttonText}>Genel Duyuru</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton}>
-                        <Text style={styles.buttonText}>Genel Duyuru</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton}>
-                        <Text style={styles.buttonText}>Genel Duyuru</Text>
-                    </TouchableOpacity>
-                </ScrollView>
-                <TextInput style={styles.multiInput} multiline={true} placeholder="Paylaşımınızı buraya giriniz..."/>
+                </View>
+                <View style={styles.categoryRow}>
+                    <TextInput style={styles.multiInput} multiline={true} placeholder="Paylaşımınızı buraya giriniz..."/>
+                </View>
                 <View style={styles.buttonRow}>
                     <TouchableOpacity style={styles.categoryButton}>
                         <Text style={styles.buttonText}>Kaydet</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.categoryButton,{backgroundColor:'#FF9F0C'}]}>
+                    <TouchableOpacity style={styles.categoryButton}>
                         <Text style={styles.buttonText}>Temizle</Text>
                     </TouchableOpacity>
                 </View>
+                <Modal transparent={true} visible={visible} animationType="slide" >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalBody}>
+                            <View style={styles.row}>
+                                <Text style={styles.modalTitle}>Konular</Text>
+                                <TouchableOpacity onPress={()=>setVisible(false)}>
+                                    <Image  
+                                        style={styles.closeImage}
+                                        source={require('../../assets/images/close.png')}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            <ScrollView style={styles.modalScroll}>
+                                <View style={[styles.row,{marginTop:10}]}>
+                                    <TouchableOpacity style={styles.modalButton}>
+                                        <Image 
+                                            style={styles.buttonImage}
+                                            source={require('../../assets/images/cap2.png')}
+                                        />
+                                        <Text style={styles.modalButtonTitle}>Okul Duyuruları</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.modalButton}>
+                                        <Image 
+                                            style={styles.buttonImage}
+                                            source={require('../../assets/images/cap2.png')}
+                                        />
+                                        <Text style={styles.modalButtonTitle}>Okul Duyuruları</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={[styles.row,{marginTop:10}]}>
+                                    <TouchableOpacity style={styles.modalButton}>
+                                        <Image 
+                                            style={styles.buttonImage}
+                                            source={require('../../assets/images/cap2.png')}
+                                        />
+                                        <Text style={styles.modalButtonTitle}>Okul Duyuruları</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.modalButton}>
+                                        <Image 
+                                            style={styles.buttonImage}
+                                            source={require('../../assets/images/cap2.png')}
+                                        />
+                                        <Text style={styles.modalButtonTitle}>Okul Duyuruları</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </ScrollView>
+                        </View>
+                    </View>
+                </Modal>
         </ScrollView>
     );
 }
@@ -44,7 +77,7 @@ const Share = () =>{
 const styles = StyleSheet.create({
     Body:{
         flex:1,
-        backgroundColor:'#F7F6FB'
+        backgroundColor:'#F5EFE7'
     },
     input:{
         width:320,
@@ -73,22 +106,24 @@ const styles = StyleSheet.create({
         paddingLeft:32
     },
     categoryRow:{
-        height:60,
-        backgroundColor:'white',
-        borderRadius:10,
-        marginTop:10,
-        marginleft:10,
-        width:400,
-        paddingVeritcal:10
+        width:360,
+        minHeight:230,
+        alignSelf:'center',
+        backgroundColor:'#D8C4B6',
+        borderRadius:5,
+        paddingLeft:1,
+        paddingBottom:12,
+        marginTop:10
     },
     categoryButton:{
-        backgroundColor:'#3669C9',
+        backgroundColor:'#4F709C',
         width:120,
         height:40,
         borderRadius:5,
         alignItems:'center',
         justifyContent:'center',
-        marginLeft:10
+        marginLeft:10,
+        marginTop:10
     },
     buttonText:{
         color:'white',
@@ -109,7 +144,6 @@ const styles = StyleSheet.create({
   
         elevation: 2
     },
-
     multiInput:{
         width:350,
         backgroundColor:'white',
@@ -124,6 +158,71 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         marginTop:20,
         alignSelf:'center'
+    },
+    modal:{
+        width:'100%',
+        height:'20%'
+    },
+    modalBody:{
+      backgroundColor:'#D8C4B6',
+      width:'100%',
+      height:300,
+      alignSelf:'center',
+      marginTop:'auto',
+      borderTopLeftRadius:20,
+      borderTopRightRadius:20
+    },
+    modalContainer:{
+        flex: 1, 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+    tabRow:{
+      flexDirection:'row',
+      width:390,
+      height:60,
+      justifyContent:'space-between',
+      padding:15,
+      alignSelf:'center',
+      backgroundColor:'red',
+    },
+    row:{
+        flexDirection:'row'
+    },
+    modalTitle:{
+        color:'#F5EFE7',
+        marginLeft:160,
+        fontSize:18,
+        marginTop:10,
+        fontWeight:'900'
+    },
+    closeImage:{
+        width:15,
+        height:15,
+        marginTop:18,
+        marginLeft:130
+    },
+    modalScroll:{
+        padding:30
+    },
+    modalButton:{
+        marginRight:10,
+        width:150,
+        height:40,
+        backgroundColor:'#F5EFE7',
+        borderRadius:5,
+        justifyContent:'center',
+        alignItems:'center',
+        flexDirection:'row'
+    },
+    buttonImage:{
+        width:30,
+        height:30,
+        marginRight:10
+    },
+    modalButtonTitle:{
+        color:'#D8C4B6'
     }
 })
 export default Share;

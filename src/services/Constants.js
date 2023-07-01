@@ -7,8 +7,37 @@ const Constants = {
         change:{
             email:'user/change/email',
             password:'user/change/password'
-        }
+        },
+        token:'user/token'
     },
-    
-  };
+    share:{
+        all:'share/all',
+        create:'share/create',
+        category:'share/category',
+        campus:'share/category',
+        user:'share/user'
+    },
+    campus:'campus',
+    category:'category',
+    message:{
+        create:'message/create',
+        user:'message/user',
+        to:'message/to'
+    },
+    react:{
+        create:'react/create'
+    },
+    elegant:'elegant',
+    comment:{
+        create:'create'
+    },
+    checks:{
+        create:'checks/elegant/create',
+        elegant:'checks/elegant'
+    },
+    mail:{
+        code:'mail/code',
+        active:'mail/active'
+    }
+};
 export default Constants;

@@ -1,6 +1,5 @@
 import { View,Text,StyleSheet} from "react-native";
-import Left from '../../assets/icon/left.svg';
-import Gear from '../../assets/icon/gear.svg'
+
 const ProfilTab = (props) =>{
     return(
         <View>

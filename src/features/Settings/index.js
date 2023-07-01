@@ -1,12 +1,10 @@
-import { View, StyleSheet, TouchableOpacity} from "react-native";
-import Right from '../../assets/icon/right.svg'
+import { View, StyleSheet, TouchableOpacity,Text} from "react-native";
 const Settings = () =>{
     return(
         <View style={styles.Body}>
             <View>
                 <TouchableOpacity>
-                    <Text>Hesap Bilgilerim</Text>
-                    <Right />
+                    <Text>Ayarlar</Text>
                 </TouchableOpacity>
             </View>
         </View>

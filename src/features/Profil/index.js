@@ -1,19 +1,19 @@
 import { View,Text,Image,StyleSheet} from "react-native";
-import ProfilTab from "../../component/ProfilTab";
 import ShareCard from "../../component/ShareCard";
+import {shadow} from '../../assets/styles/styles'
 const Profil = () => {
     return(
-        <View>
-            <ProfilTab title="Profilim"/>
-            <View style={styles.row}>
-                <Image 
-                    style={styles.image}
-                    source={require('../../assets/images/avatar.png')}
-                />
-                <Text style={styles.nickText}>Kişi</Text>
+        <View >
+            <View style={styles.tabRow}>
+                <View style={styles.row} >
+                    <Image 
+                        style={styles.image}
+                        source={require('../../assets/images/avatar/man.png')}
+                    />
+                    <Text style={styles.nickText}>@kişi</Text>
+                </View>
+                <Text style={styles.bioText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</Text>
             </View>
-            <Text style={styles.bioText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</Text>
-            <View style={styles.line}></View>
             <View style={styles.ShareRow}>
                 <ShareCard />
             </View>
@@ -21,22 +21,33 @@ const Profil = () => {
     );
 }
 const styles = StyleSheet.create({
+    tabRow:{
+        ...shadow,
+        backgroundColor:'#D8C4B6',
+        borderRadius:5,
+        width:334,
+        alignSelf:'center',
+        marginTop:10
+    },
     row:{
         flexDirection:'row',
-        padding:10
+        padding:10,
     },
     image:{
         width:70,
         height:70
     },
     nickText:{
-        fontSize:17,
+        fontSize:15,
+        fontWeight:'400',
         color:'black',
         marginLeft:15,
         marginTop:20
     },
     bioText:{
         padding:15,
+        color:'black',
+        fontWeight:'400',
         fontSize:15
     },
     line:{
@@ -48,9 +59,7 @@ const styles = StyleSheet.create({
     },
     ShareRow:{
         width:390,
-        paddingVertical:10,
-        paddingHorizontal:20,
-        marginTop:15
+        paddingVertical:10
     }
 })
 export default Profil;

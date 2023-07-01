@@ -1,6 +1,6 @@
 import Constants from "./Constants";
 import axios from "axios";
-const api = (path, params, methodP, token) => {
+const api = (path, params, methodP, token ) => {
 
     const headersOptions = {
         Accept: "application/json",

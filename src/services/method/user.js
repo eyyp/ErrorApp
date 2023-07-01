@@ -1,7 +1,7 @@
 import api from '../index'
 import Constants from '../Constants';
-
-export const checks = (email,password) => {
+import { getToken } from "../config";
+export const Checks = (email,password) => {
   return api(
     Constants.user.check,
     {email,password},
@@ -10,7 +10,7 @@ export const checks = (email,password) => {
   );
 }
 
-export const create = (email,nick,password,gender) => {
+export const Create = (email,nick,password,gender,bio_text) => {
     return api(
       Constants.user.create,
       {email,nick,password,gender},
@@ -19,11 +19,38 @@ export const create = (email,nick,password,gender) => {
     );
 }
 
-export const search = () => {
+export const Search = () => {
     return api(
       Constants.user.search,
       null,
       'get',
-      null
+      getToken()
     );
+}
+
+export const ChangeEmail = (user_id,nick) =>{
+  return api(
+    Constants.user.change.email,
+    {user_id,nick},
+    'post',
+    getToken()
+  );
+}
+
+export const ChangePassword = (user_id,password) =>{
+  return api(
+    Constants.user.change.password,
+    {user_id,password},
+    'post',
+    getToken()
+  );
+}
+
+export const token = (token) =>{
+  return api(
+    Constants.user.token,
+    {token},
+    'post',
+    null
+  );
 }

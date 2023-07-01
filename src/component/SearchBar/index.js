@@ -7,22 +7,24 @@ import { View, TextInput, TouchableOpacity,StyleSheet} from 'react-native';
 const SearchBar = () =>{
     return(
         <View style={styles.tabBar}>
-          <TextInput style={styles.input} placeholder="Ürün Ara..." placeholderTextColor="#9C9BA4" />
+          <TextInput style={styles.input} placeholder="Kullanıcı Ara..." placeholderTextColor="#9C9BA4" />
           <Search style={styles.search}/>
         </View>
     );
 }
 const styles = StyleSheet.create({
   tabBar:{
-      width:'100%',
+      width:334,
       flexDirection:'row',
-      paddingVertical:5,
-      paddingHorizontal:10,
+      padding:4,
+      marginLeft:28,
+      backgroundColor:'#D8C4B6',
+      borderRadius:5,
+
     },
-  
     input:{
-      backgroundColor:'white',
-      width:'100%',
+      backgroundColor:'#F5EFE7',
+      width:326,
       height:44,
       borderWidth:1,
       borderColor:'#E0E0E0',
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
   
     search:{
       position:'absolute',
-      marginLeft:20, 
+      marginLeft:11, 
       marginTop:14,
       color:'#B2B2B2'
     }
