@@ -19,6 +19,13 @@ export const USER_SEARCH_DISABLED_LOADER = 'disabled_loader/user/search';
 export const USER_SEARCH_FAILURE = 'failure/user/search';
 export const USER_SEARCH_END = 'end/user/search';
 
+export const USER_TOKEN_REQUEST = 'request/user/token';
+export const USER_TOKEN_ON_LOADER = 'on_loader/user/token';
+export const USER_TOKEN_RESPONSE = 'response/user/token';
+export const USER_TOKEN_DISABLED_LOADER = 'disabled_loader/user/token';
+export const USER_TOKEN_FAILURE = 'failure/user/token';
+export const USER_TOKEN_END = 'end/user/token';
+
 export const USER_CHANGE_EMAİL_REQUEST = 'request/user/change/email';
 export const USER_CHANGE_EMAİL_ON_LOADER = 'on_loader/user/change/email';
 export const USER_CHANGE_EMAİL_RESPONSE = 'response/user/change/email';
@@ -162,3 +169,10 @@ export const MAIL_ACTİVE_RESPONSE = 'respone/mail/active';
 export const MAIL_ACTİVE_DISABLED_LOADER = 'disabled_loader/mail/active';
 export const MAIL_ACTİVE_FAILURE = 'failure/mail/active';
 export const MAIL_ACTİVE_END = 'end/mail/active';
+
+export const MAIL_CODE_REQUEST = 'request/mail/code';
+export const MAIL_CODE_ON_LOADER = 'on_loader/mail/code';
+export const MAIL_CODE_RESPONSE = 'respone/mail/code';
+export const MAIL_CODE_DISABLED_LOADER = 'disabled_loader/mail/code';
+export const MAIL_CODE_FAILURE = 'failure/mail/code';
+export const MAIL_CODE_END = 'end/mail/code';

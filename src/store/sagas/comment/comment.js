@@ -1,14 +1,12 @@
 import { put, call} from 'redux-saga/effects';
 import * as actions from '../../actions/user/user_check';
-import { Checks } from '../../../services/method/user';
-import { setToken } from '../../../config';
-export default function* checks(action) {
+import { comment } from '../../../services/method/comment';
+export default function* comment(action) {
 
   try{
     yield put(actions.enableLoader());
-    const response = yield call(Checks(action.email,action.password));
+    const response = yield call(comment(action.user_id,action.share_id,action.commnet_text));
     if (response) {
-        yield put(setToken(response.data.access_token));
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));
     } 
