@@ -1,16 +1,19 @@
 import { TouchableOpacity, View,Image,Text,StyleSheet} from "react-native";
-
-const ProfilBar = () =>{
+import { avatars } from "../../config";
+import { useEffect } from "react";
+const ProfilBar = (props) =>{
+    useEffect(()=>{
+        
+    },[])
     return(
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={()=>props.navigation.navigate('ProfilDif',{user_id:props.item.user_id})}>
                 <Image 
                     style={styles.Image}
-                    source={require('../../assets/images/avatar/man.png')}
+                    source={props.item.avatar ? avatars[props.item.avatar].url :require('../../assets/images/avatar/1.png')}
                 />
-                <Text style={styles.nickText}>Lorem İpsum</Text>
+                <Text style={styles.nickText}>{props.item.nick}</Text>
             </TouchableOpacity>
-            <View style={styles.line}></View>
         </View>
     );
 }

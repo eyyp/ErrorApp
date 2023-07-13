@@ -1,5 +1,44 @@
-import { View,TextInput,StyleSheet, TouchableOpacity,Text,Image} from "react-native";
-const Login = () =>{
+import { View,TextInput,StyleSheet, TouchableOpacity,Text,Image, ActivityIndicator} from "react-native";
+import { useState,useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from '../../store/actions/user/user_check'
+const Login = (props) =>{
+    const [email,setEmail] = useState();
+    const [password,setPassword] = useState();
+    const [message,setMessage] = useState('');
+    const reducer = useSelector(state =>state.UserCheck)
+    const {userCheck,userStatus} = reducer;
+    const dispatch = useDispatch()
+
+    const login = () =>{
+        dispatch(actions.UserCheck(email,password))
+    }
+
+    useEffect(()=>{
+        if(userCheck.email){
+            if(userCheck.active === 1){
+                props.navigation.navigate("Tab")
+            }
+            else {
+                setMessage('Lütfen Emailinize gelen kod ile hesabınızı aktif ediniz')
+            }
+        }
+    },[])
+
+    useEffect(()=>{
+        if(userCheck.email){
+            if(userCheck.active === 1){
+                props.navigation.navigate("Tab")
+            }
+            else {
+                setMessage('Lütfen Emailinize gelen kod ile hesabınızı aktif ediniz')
+            }
+        }
+        else{
+            setMessage('Email veya şifreniz hatalı')
+        }
+    },[userCheck])
+
     return(
         <View style={styles.Body}>
             <View style={{marginLeft:140,marginTop:60}}>
@@ -7,14 +46,19 @@ const Login = () =>{
                     style={{width:100,height:100}}
                     source={require('../../assets/images/cap2.png')}
                 />
-                <Text style={{fontSize:22,color:'black'}}>bi Kampüs</Text>
+                <Text style={{fontSize:22,color:'black'}}>Bi Kampüs</Text>
             </View>
             <View style={styles.inputRow}>
-                <TextInput style={styles.input} placeholder="Email" placeholderTextColor={'#000000'}/>
-                <TextInput style={styles.input} secureTextEntry={true} placeholder="Şifre" placeholderTextColor={'#000000'}/>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Giriş Yap</Text>
+                {(!!message && !!userCheck) && <Text style={styles.poupText}>{message}</Text>}
+                <TextInput style={styles.input} autoCorrect={false} autoCapitalize='none' onChangeText={mail => setEmail(mail)} placeholder="Email" placeholderTextColor={'#000000'}/>
+                <TextInput style={styles.input} autoCorrect={false} autoCapitalize='none' onChangeText={password => setPassword(password)} secureTextEntry={true} placeholder="Şifre" placeholderTextColor={'#000000'}/>
+                <TouchableOpacity style={styles.button} disabled={userStatus === 'onLoader' ? true : false} onPress={() => login()}>
+                    {userStatus === 'onLoader' ? 
+                        <ActivityIndicator color={'white'}/>
+                        : <Text style={styles.buttonText}>Giriş Yap</Text>
+                    }
                 </TouchableOpacity>
+                <Text>{userCheck.userStatus}</Text>
             </View>
         </View>
     )
@@ -51,5 +95,14 @@ const styles = StyleSheet.create({
     inputRow:{
         marginTop:80,
         paddingLeft:32
+    },
+    poupText:{
+        width:320,
+        height:55,
+        backgroundColor:'red',
+        color:'white',
+        borderRadius:5,
+        textAlignVertical:'center',
+        paddingLeft:20
     }
 })

@@ -1,8 +1,9 @@
 import * as types from '../types'
 
-export const token = () => {
+export const token = (token) => {
     return {
-        type:types.USER_TOKEN_REQUEST
+        type:types.USER_TOKEN_REQUEST,
+        token
     }
 }
 

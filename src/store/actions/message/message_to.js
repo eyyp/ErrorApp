@@ -1,8 +1,10 @@
 import * as types from '../types'
 
-export const MessageTo = () => {
+export const MessageTo = (from_id,to_id) => {
     return {
-        type:types.MESSAGE_TO_REQUEST
+        type:types.MESSAGE_TO_REQUEST,
+        from_id,
+        to_id
     }
 }
 

@@ -1,7 +1,6 @@
 import { View,TouchableOpacity, Text,Image,StyleSheet} from "react-native";
 
 const CampusButton = (props) => {
-    console.log(props)
     return(
         <TouchableOpacity style={styles.Button}>
             <Image 

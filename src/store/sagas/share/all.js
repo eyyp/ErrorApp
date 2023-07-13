@@ -1,13 +1,13 @@
 import { put, call} from 'redux-saga/effects';
-import * as actions from '../../actions/user/user_check';
+import * as actions from '../../actions/share/share_all';
 import { all } from '../../../services/method/share';
-export default function* all(action) {
+export default function* AllSaga(action) {
 
   try{
     yield put(actions.enableLoader());
-    const response = yield call(all());
+    const response = yield call(all);
     if (response) {
-        yield put(actions.Response(response.data));
+        yield put(actions.Response(response?.data));
         yield put(actions.disableLoader({}));
     } 
     else {

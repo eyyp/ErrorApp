@@ -1,22 +1,31 @@
 import api from '../index'
 import Constants from '../Constants';
-import { getToken } from "../config";
-export const Checks = (email,password) => {
+import { getToken } from "../../config";
+export const Checks = async (email,password) => {
   return api(
     Constants.user.check,
-    {email,password},
+    {email:email,password:password},
     'post',
     null
   );
 }
 
-export const Create = (email,nick,password,gender,bio_text) => {
+export const Create = (email,nick,password,gender,bio_text,avatar) => {
     return api(
       Constants.user.create,
-      {email,nick,password,gender},
+      {email,nick,password,gender,bio_text,avatar},
       'post',
       null
     );
+}
+
+export const NickCheck = (nick) => {
+  return api(
+    Constants.user.nick.check + '/' + nick,
+    null,
+    'get',
+    null
+  );
 }
 
 export const Search = () => {
@@ -52,5 +61,14 @@ export const token = (token) =>{
     {token},
     'post',
     null
+  );
+}
+
+export const shareData = (id) =>{
+  return api(
+    Constants.user.share.data + '/' +id,
+    null,
+    'get',
+    getToken()
   );
 }

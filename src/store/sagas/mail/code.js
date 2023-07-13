@@ -1,7 +1,7 @@
 import { put, call} from 'redux-saga/effects';
 import * as actions from '../../actions/user/user_check';
 import { code } from '../../../services/method/mail';
-export default function* code(action) {
+export default function* CodeSaga(action) {
    try{
     yield put(actions.enableLoader());
     const response = yield call(code(action.user_id,action.email));

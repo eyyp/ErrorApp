@@ -1,21 +1,29 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet,Image} from 'react-native';
 import { user,messages } from '../../services/mock';
 const MessageListPage = (props) => {
   // Kullanıcının mesajlaşmalarının bir örneği
-  /*const messages = [
+  const messages = [
     { id: 1, sender: 'John', content: 'Merhaba!' },
     { id: 2, sender: 'Alice', content: 'Selam!' },
     { id: 3, sender: 'John', content: 'Nasılsın?' },
     { id: 4, sender: 'Alice', content: 'İyiyim, teşekkürler!' },
     // ... Diğer mesajlar
-  ];*/
+  ];
 
   // Mesaj öğelerini render etmek için kullanılan bileşen
   const renderMessageItem = ({ item }) => (
     <TouchableOpacity style={styles.messageItem} onPress={()=>props.navigation.navigate("ChatApp",item)}>
-      <Text style={styles.senderText}>{item.from_id}</Text>
-      <Text style={styles.contentText}>{item.message}</Text>
+      <View style={styles.avatarRow}>
+        <Image 
+          style={styles.avatar}
+          source={require('../../assets/images/avatar/man.png')}
+        />
+      </View>
+      <View>
+        <Text style={styles.senderText}>{item.sender}</Text>
+        <Text style={styles.contentText}>{item.content}</Text>
+      </View>
     </TouchableOpacity>
   );
 
@@ -24,7 +32,7 @@ const MessageListPage = (props) => {
       <FlatList
         data={messages}
         renderItem={renderMessageItem}
-        keyExtractor={(item) => item.message_id.toString()}
+        keyExtractor={(item) => item.id.toString()}
       />
     </View>
   );
@@ -37,18 +45,52 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   messageItem: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    paddingTop:8,
+    paddingLeft:8,
+    borderRadius:5,
+    width:334,
+    height:110,
+    backgroundColor: '#D8C4B6',
+    marginTop:18,
+    flexDirection:'row'
   },
   senderText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 12,
+    fontWeight: '400',
     marginBottom: 8,
+    color:'#3F3F3F',
+    backgroundColor:'#F5EFE7',
+    borderRadius:5,
+    width:105,
+    height:26,
+    paddingLeft:6,
+    paddingTop:5,
+    marginLeft:18
   },
   contentText: {
-    fontSize: 16,
+    fontSize: 12,
+    fontWeight: '400',
+    marginBottom: 8,
+    color:'#3F3F3F',
+    backgroundColor:'#F5EFE7',
+    borderRadius:5,
+    width:236,
+    height:44,
+    paddingLeft:10,
+    paddingTop:10,
+    marginLeft:18
   },
+  avatarRow:{
+    width:54,
+    height:52,
+    backgroundColor:'#F5EFE7',
+    borderRadius:5,
+    alignItems:'center'
+  },
+  avatar:{
+    width:48,
+    height:48
+  }
 });
 
 export default MessageListPage;

@@ -1,6 +1,6 @@
 import api from '../index'
 import Constants from '../Constants';
-import { getToken } from "../config";
+import { getToken } from "../../config";
 export const code = (user_id,email) => {
   return api(
     Constants.mail.code,

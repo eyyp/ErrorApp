@@ -1,8 +1,9 @@
 import * as types from '../types'
 
-export const MessageUser = () => {
+export const MessageUser = (id) => {
     return {
-        type:types.MESSAGE_USER_REQUEST
+        type:types.MESSAGE_USER_REQUEST,
+        id
     }
 }
 

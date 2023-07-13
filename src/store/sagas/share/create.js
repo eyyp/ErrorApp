@@ -1,7 +1,7 @@
 import { put, call} from 'redux-saga/effects';
 import * as actions from '../../actions/user/user_check';
 import { Create } from '../../../services/method/user';
-export default function* shareCreate(action) {
+export default function* ShareCreateSaga(action) {
 
   try{
     yield put(actions.enableLoader());

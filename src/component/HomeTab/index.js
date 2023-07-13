@@ -1,18 +1,12 @@
 import { StyleSheet,View,TouchableOpacity,Text,Image} from "react-native";
-
-const HomeTab = () =>{
+import { clearToken } from "../../config";
+const HomeTab = (props) =>{
     return(
         <View style={styles.tabRow} >
-        <TouchableOpacity style={styles.tabButton}>
+        <TouchableOpacity style={styles.tabButton} onPress={()=>props.onPress()}>
             <Image
                 style={styles.image}
                 source={require('../../assets/icon/menus.png')}
-            />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabButton}>
-            <Image
-                style={styles.image}
-                source={require('../../assets/icon/bell.png')}
             />
         </TouchableOpacity>
         <TouchableOpacity style={styles.tabButton}>
@@ -25,8 +19,15 @@ const HomeTab = () =>{
             <Text style={styles.userNick}>Lorem İpsum</Text>
             <Image
                 style={styles.image}
-                source={require('../../assets/images/avatar/man.png')}
+                source={require('../../assets/images/avatar/1.png')}
             />
+        </TouchableOpacity>
+        <TouchableOpacity style={{marginTop:10,zIndex:999,flexDirection:'row',padding:5,borderRadius:5,backgroundColor:'#D8C4B6',width:100,height:30}} onPress={()=>{clearToken(),props.navigation.navigate("Login")}}>
+            <Image 
+                style={{width:25,height:25}}
+                source={require('../../assets/icon/logout.png')}
+            />
+            <Text style={{marginLeft:5}}>Çıkış yap</Text>
         </TouchableOpacity>
     </View>
     )

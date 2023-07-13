@@ -1,7 +1,7 @@
 import { put, call} from 'redux-saga/effects';
 import * as actions from '../../actions/user/user_check';
 import { ChangePassword } from '../../../services/method/user';
-export default function* changePassword(action) {
+export default function* ChangePasswordSaga(action) {
 
   try{
     yield put(actions.enableLoader());

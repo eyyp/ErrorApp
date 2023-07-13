@@ -1,8 +1,9 @@
 import * as types from '../types'
 
-export const ShareCategory = () => {
+export const ShareCategory = (id) => {
     return {
-        type:types.SHARE_CATEGORY_REQUEST
+        type:types.SHARE_CATEGORY_REQUEST,
+        id
     }
 }
 

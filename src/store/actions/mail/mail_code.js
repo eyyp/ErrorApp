@@ -1,8 +1,10 @@
 import * as types from '../types'
 
-export const MailCode = () => {
+export const MailCode = (user_id) => {
     return {
-        type:types.MAIL_CODE_REQUEST
+        type:types.MAIL_CODE_REQUEST,
+        user_id,
+        email
     }
 }
 

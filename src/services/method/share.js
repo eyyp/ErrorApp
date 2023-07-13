@@ -1,6 +1,6 @@
 import api from '../index'
 import Constants from '../Constants';
-import { getToken } from "../config";
+import { getToken } from "../../config";
 export const all = () => {
   return api(
     Constants.share.all,
@@ -41,7 +41,7 @@ export const user = (id) => {
     return api(
       Constants.share.user + '/' + id,
       null,
-      'post',
-      null
+      'get',
+      getToken()
     );
 }

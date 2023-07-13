@@ -1,8 +1,11 @@
 import * as types from '../types'
 
-export const CheksElegantCreate = () => {
+export const CheksElegantCreate = (user_id,elegant_id,elegant) => {
     return {
-        type:types.CHECKS_ELEGANT_CREATE_REQUEST
+        type:types.CHECKS_ELEGANT_CREATE_REQUEST,
+        user_id,
+        elegant_id,
+        elegant
     }
 }
 

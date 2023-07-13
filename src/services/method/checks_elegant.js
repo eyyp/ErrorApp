@@ -1,6 +1,6 @@
 import api from '../index'
 import Constants from '../Constants';
-import { getToken } from "../config";
+import { getToken } from "../../config";
 export const create = (user_id,elegant_id,elegant) => {
   return api(
     Constants.checks.create,
@@ -13,8 +13,8 @@ export const create = (user_id,elegant_id,elegant) => {
 export const checksElegant = (id) => {
     return api(
       Constants.checks.elegant + '/' + id,
-      {user_id,elegant_id,elegant},
+      null,
       'get',
       getToken()
-    );
-  }
+  );
+}

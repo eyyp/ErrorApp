@@ -1,5 +1,10 @@
 import { View, StyleSheet, TouchableOpacity,Text} from "react-native";
+import { useEffect } from "react";
+import { useDispatch,useSelector } from "react-redux";
+import * as action from '../../store/actions/user/user_check'
 const Settings = () =>{
+    const {userCheck} = useSelector(state => state.UserCheck)
+    const dispatch = useDispatch()
     return(
         <View style={styles.Body}>
             <View>

@@ -1,11 +1,11 @@
 import { put, call} from 'redux-saga/effects';
-import * as actions from '../../actions/user/user_check';
+import * as actions from '../../actions/elegant/elegant'
 import { elegant } from '../../../services/method/elegant';
-export default function* elegant(action) {
+export default function* ElegantSaga(action) {
 
   try{
     yield put(actions.enableLoader());
-    const response = yield call(elegant(action.id));
+    const response = yield call(elegant,action.id);
     if (response) {
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));

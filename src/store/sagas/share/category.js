@@ -1,11 +1,11 @@
 import { put, call} from 'redux-saga/effects';
-import * as actions from '../../actions/user/user_check';
+import { actions } from '../../actions';
 import { category } from '../../../services/method/share';
-export default function* shareCategory(action) {
+export default function* ShareCategorySaga(action) {
 
   try{
     yield put(actions.enableLoader());
-    const response = yield call(category(action.id));
+    const response = yield call(category,action.id);
     if (response) {
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));

@@ -1,8 +1,10 @@
 import * as types from '../types'
 
-export const UserChangeEmail = () => {
+export const UserChangeEmail = (user_id,nick) => {
     return {
-        type:types.USER_CHANGE_EMAİL_REQUEST
+        type:types.USER_CHANGE_EMAİL_REQUEST,
+        user_id,
+        nick
     }
 }
 

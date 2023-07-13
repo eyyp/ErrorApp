@@ -1,8 +1,11 @@
 import * as types from '../types'
 
-export const CommentCreate = () => {
+export const CommentCreate = (user_id,share_id,comment_text) => {
     return {
-        type:types.COMMENT_CREATE_REQUEST
+        type:types.COMMENT_CREATE_REQUEST,
+        user_id,
+        share_id,
+        comment_text
     }
 }
 

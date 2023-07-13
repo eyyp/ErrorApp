@@ -1,5 +1,5 @@
 const Constants = {
-    BASE_URL: "http://localhost:8080/api/",
+    BASE_URL: "http://192.168.1.155:8080/api/",
     user:{
         check:'user/check',
         create:'user/create',
@@ -8,7 +8,13 @@ const Constants = {
             email:'user/change/email',
             password:'user/change/password'
         },
-        token:'user/token'
+        token:'user/token',
+        nick:{
+            check:'user/nick/check'
+        },
+        share:{
+            data:'user/share/data'
+        }
     },
     share:{
         all:'share/all',
@@ -25,7 +31,9 @@ const Constants = {
         to:'message/to'
     },
     react:{
-        create:'react/create'
+        create:'react/create',
+        share:'react/share',
+        user:'react/share/user'
     },
     elegant:'elegant',
     comment:{

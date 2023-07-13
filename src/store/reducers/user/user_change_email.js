@@ -1,4 +1,4 @@
-import createReducer from '../../lib/createReducer'
+import createReducer from '../../../lib/createReducer'
 import * as types from '../../actions/types';
 
 const initialState = {
@@ -18,7 +18,7 @@ export const ChangeEmail = createReducer(initialState, {
     return {
       ...state,
       status:'response',
-      apport : action.response
+      changeEmail : action.response
     };
   },
 

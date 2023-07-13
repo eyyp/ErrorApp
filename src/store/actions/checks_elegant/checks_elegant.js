@@ -1,8 +1,9 @@
 import * as types from '../types'
 
-export const CheksElegant = () => {
+export const CheksElegant = (id) => {
     return {
-        type:types.CHECKS_ELGANT_REQUEST
+        type:types.CHECKS_ELEGANT_REQUEST,
+        id
     }
 }
 
@@ -22,6 +23,12 @@ export const Response = (response) =>{
     return {
         type: types.CHECKS_ELEGANT_RESPONSE,
         response,
+    }
+}
+
+export const End = () =>{
+    return {
+        type: types.CHECKS_ELEGANT_END,
     }
 }
 

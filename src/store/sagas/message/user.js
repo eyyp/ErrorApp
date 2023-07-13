@@ -1,7 +1,7 @@
 import { put, call} from 'redux-saga/effects';
 import * as actions from '../../actions/user/user_check';
 import { user } from '../../../services/method/message';
-export default function* messageUser(action) {
+export default function* MessageUserSaga(action) {
 
   try{
     yield put(actions.enableLoader());

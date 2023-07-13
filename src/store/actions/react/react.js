@@ -1,8 +1,11 @@
 import * as types from '../types'
 
-export const React = () => {
+export const React = (user_id,share_id,like_type) => {
     return {
-        type:types.REACT_CREATE_REQUEST
+        type:types.REACT_CREATE_REQUEST,
+        user_id,
+        share_id,
+        like_type
     }
 }
 

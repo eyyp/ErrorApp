@@ -40,6 +40,20 @@ export const USER_CHANGE_PASSWORD_DISABLED_LOADER = 'disabled_loader/user/change
 export const USER_CHANGE_PASSWORD_FAILURE = 'failure/user/change/password';
 export const USER_CHANGE_PASSWORD_END = 'end/user/change/password';
 
+export const USER_NICK_CHECK_REQUEST = 'request/user/nick/check';
+export const USER_NICK_CHECK_ON_LOADER = 'on_loader/user/nick/check';
+export const USER_NICK_CHECK_RESPONSE = 'response/user/nick/check';
+export const USER_NICK_CHECK_DISABLED_LOADER = 'disabled_loader/user/nick/check';
+export const USER_NICK_CHECK_FAILURE = 'failure/user/nick/check';
+export const USER_NICK_CHECK_END = 'end/user/nick/check';
+
+export const USER_SHARE_DATA_REQUEST = 'request/user/share/data';
+export const USER_SHARE_DATA_ON_LOADER = 'on_loader/user/share/data';
+export const USER_SHARE_DATA_RESPONSE = 'response/user/share/data';
+export const USER_SHARE_DATA_DISABLED_LOADER = 'disabled_loader/share/data';
+export const USER_SHARE_DATA_FAILURE = 'failure/user/share/data';
+export const USER_SHARE_DATA_END = 'end/user/share/data';
+
 
 
 export const SHARE_ALL_REQUEST = 'request/share/all';
@@ -127,6 +141,19 @@ export const REACT_CREATE_DISABLED_LOADER = 'disabled_loader/react/create';
 export const REACT_CREATE_FAILURE = 'failure/react/create';
 export const REACT_CREATE_END = 'end/react/create';
 
+export const REACT_SHARE_REQUEST = 'request/react/share';
+export const REACT_SHARE_LOADER = 'on_loader/react/share';
+export const REACT_SHARE_RESPONSE = 'response/react/share';
+export const REACT_SHARE_DISABLED_LOADER = 'disabled_loader/react/share';
+export const REACT_SHARE_FAILURE = 'failure/react/share';
+export const REACT_SHARE_END = 'end/react/share';
+
+export const REACT_SHARE_USER_REQUEST = 'request/react/share/user';
+export const REACT_SHARE_USER_LOADER = 'on_loader/react/share/user';
+export const REACT_SHARE_USER_RESPONSE = 'response/react/share/user';
+export const REACT_SHARE_USER_DISABLED_LOADER = 'disabled_loader/react/share/user';
+export const REACT_SHARE_USER_FAILURE = 'failure/react/share/user';
+export const REACT_SHARE_USER_END = 'end/react/share/user';
 
 
 export const ELEGANT_REQUEST = 'request/elegant';
@@ -160,8 +187,6 @@ export const CHECKS_ELEGANT_RESPONSE = 'response/checks/elegant';
 export const CHECKS_ELEGANT_DISABLED_LOADER = 'disabled_loader/checks/elegant';
 export const CHECKS_ELEGANT_FAILURE = 'failure/checks/elegant';
 export const CHECKS_ELEGANT_END = 'end/checks/elegant';
-
-
 
 export const MAIL_ACTİVE_REQUEST = 'request/mail/active';
 export const MAIL_ACTİVE_ON_LOADER = 'on_loader/mail/active';

@@ -8,7 +8,7 @@ const Profil = () => {
                 <View style={styles.row} >
                     <Image 
                         style={styles.image}
-                        source={require('../../assets/images/avatar/man.png')}
+                        source={require('../../assets/images/avatar/1.png')}
                     />
                     <Text style={styles.nickText}>@kişi</Text>
                 </View>

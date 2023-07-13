@@ -1,8 +1,9 @@
 import * as types from '../types'
 
-export const Campus = () => {
+export const Campus = (id) => {
     return {
-        type:types.CAMPUS_REQUEST
+        type:types.CAMPUS_REQUEST,
+        id
     }
 }
 

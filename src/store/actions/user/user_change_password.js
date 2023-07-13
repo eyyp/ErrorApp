@@ -1,8 +1,10 @@
 import * as types from '../types'
 
-export const UserChangePassword = () => {
+export const UserChangePassword = (user_id,password) => {
     return {
-        type:types.USER_CHANGE_PASSWORD_REQUEST
+        type:types.USER_CHANGE_PASSWORD_REQUEST,
+        user_id,
+        password
     }
 }
 

@@ -1,11 +1,10 @@
 import { put, call} from 'redux-saga/effects';
-import * as actions from '../../actions/user/user_check';
+import * as actions from '../../actions/checks_elegant/checks_elegant'
 import { checksElegant } from '../../../services/method/checks_elegant';
-export default function* checksElegant(action) {
-
+export default function* ChecksElegantSaga(action) {
   try{
     yield put(actions.enableLoader());
-    const response = yield call(checksElegant(action.id));
+    const response = yield call(checksElegant,action.id);
     if (response) {
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));
@@ -20,6 +19,6 @@ export default function* checksElegant(action) {
     yield put(actions.disableLoader({}));
   } 
   finally {
-    yield put(actions.disableLoader({}));
+    yield put(actions.End());
   }
 }

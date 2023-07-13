@@ -4,12 +4,11 @@ import io from 'socket.io-client';
 
 const SERVER_URL = 'http://192.168.1.155:3000'; // Socket sunucusunun URL'si
 
-const ChatApp = (props) => {
+const Chat = (props) => {
   const [userid, setUserid] = useState(props.route.params.from_id);
   const [tonid,setToid] = useState(props.route.params.to_id);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  console.log(props.route.params)
   // Socket bağlantısını başlat ve mesajları dinle
   useEffect(() => {
     const socket = io(SERVER_URL);
@@ -26,7 +25,7 @@ const ChatApp = (props) => {
   }, []);
 
   useEffect(()=>{
-    console.log(messages);
+    
   },[messages])
 
   // Mesajı sunucuya gönder
@@ -61,10 +60,24 @@ const ChatApp = (props) => {
       />
     </View>
   );
+
+  return(
+    <View style={styles.Body}>
+        <View style={styles.tabRow}></View>
+    </View>
+  );
 }
 const styles = StyleSheet.create({
+    Body:{
+      backgroundColor:'#F5EFE7'
+    },
     container:{
 
+    },
+    tabRow:{
+      backgroundColor:'#D8C4B6',
+      width:'%100',
+      height:84,
     },
     input:{
 
@@ -74,4 +87,4 @@ const styles = StyleSheet.create({
     },
 
 })
-export default ChatApp;
+export default Chat;

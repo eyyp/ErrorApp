@@ -1,8 +1,12 @@
 import * as types from '../types'
 
-export const ShareCreate = () => {
+export const ShareCreate = (user_id,share_text,category_id,campus_id) => {
     return {
-        type:types.SHARE_CREATE_REQUEST
+        type:types.SHARE_CREATE_REQUEST,
+        user_id,
+        share_text,
+        category_id,
+        campus_id
     }
 }
 

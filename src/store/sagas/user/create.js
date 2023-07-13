@@ -1,11 +1,11 @@
 import { put, call} from 'redux-saga/effects';
-import * as actions from '../../actions/user/user_check';
+import * as actions from '../../actions/user/user_create'
 import { Create } from '../../../services/method/user';
-export default function* userCreate(action) {
+export default function* UserCreateSaga(action) {
 
   try{
     yield put(actions.enableLoader());
-    const response = yield call(Create(action.email,action.nick,action.password,action.gender,action.bio_text));
+    const response = yield call(Create,action.email,action.nick,action.password,action.gender,action.bio_text,action.avatar);
     if (response) {
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));

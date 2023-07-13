@@ -1,5 +1,5 @@
 import {AppRegistry} from 'react-native';
-import Settings from './src/features/Settings/index'
+import { MainNavigator } from './src/navigation/MainNavigator';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => Settings);
+AppRegistry.registerComponent(appName, () => MainNavigator);

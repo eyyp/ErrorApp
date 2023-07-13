@@ -1,7 +1,7 @@
 import { put, call} from 'redux-saga/effects';
 import * as actions from '../../actions/user/user_check';
 import { comment } from '../../../services/method/comment';
-export default function* comment(action) {
+export default function* CommentSaga(action) {
 
   try{
     yield put(actions.enableLoader());

@@ -1,8 +1,9 @@
 import * as types from '../types'
 
-export const ShareCampus = () => {
+export const ShareCampus = (id) => {
     return {
-        type:types.SHARE_CAMPUS_REQUEST
+        type:types.SHARE_CAMPUS_REQUEST,
+        id
     }
 }
 

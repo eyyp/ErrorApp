@@ -108,7 +108,7 @@ export const styles =  StyleSheet.create({
     },
     elegateRow:{
         width:334,
-        height:69,
+        height:100,
         justifyContent:'space-between',
         borderRadius:5,
         marginHorizontal:5,
@@ -117,8 +117,8 @@ export const styles =  StyleSheet.create({
         backgroundColor:'#D8C4B6'
     },
     elegateTitle:{
-        marginLeft:128,
-        color:'#3F3F3F',
+        alignSelf:'center',
+        color:'#F5EFE7',
         fontSize:15,
         fontWeight:'700',
         marginTop:3
@@ -130,16 +130,125 @@ export const styles =  StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        borderRadius:5,
+        marginRight:4,
+        borderRadius:5
+    },
+    elegateConFirst:{
+        backgroundColor:'#CCEEBC',
+        width:150,
+        height:35,
+        flexDirection:'row',
+        justifyContent:'flex-end',
+        alignItems:'center',
+        paddingLeft:5,
+        paddingRight:10,
+        borderTopLeftRadius:5,
+        borderBottomLeftRadius:5,
         marginRight:4
+    },
+    elegateConSecond:{
+        backgroundColor:'#8CC0DE',
+        width:150,
+        height:35,
+        flexDirection:'row',
+        alignItems:'center',
+        paddingRight:10,
+        paddingLeft:10,
+        borderTopRightRadius:5,
+        borderBottomRightRadius:5
     },
     elegaButtonRow:{
         flexDirection:'row',
         paddingBottom:4
     },
     elegateButtonText:{
-        color:'#D8C4B6',
-        fontSize:16,
+        color:'white',
+        fontSize:14,
         fontWeight:'900'
+    },
+    modalContainer:{
+        flex: 1, 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+    elegantInfoRow:{
+        flexDirection:'row',
+        justifyContent:'space-between'
+    },
+    elegantText:{
+        color:'white',
+        marginBottom:6,
+        marginLeft:10
+    },
+    elegantTextSecond:{
+        color:'white',
+        marginBottom:6,
+        marginRight:10
+    },
+    modalBody:{
+        backgroundColor:'#D8C4B6',
+        width:'100%',
+        height:380,
+        alignSelf:'center',
+        marginTop:'auto',
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20
+    },
+    row:{
+        flexDirection:'row'
+    },
+    modalTitle:{
+        color:'#F5EFE7',
+        marginLeft:160,
+        fontSize:18,
+        marginTop:10,
+        fontWeight:'900'
+    },
+    closeImage:{
+        width:15,
+        height:15,
+        marginTop:18,
+        marginLeft:130
+    },
+    modalScroll:{
+        padding:30
+    },
+    modalButton:{
+        marginRight:10,
+        width:150,
+        height:40,
+        backgroundColor:'#F5EFE7',
+        borderRadius:5,
+        justifyContent:'flex-start',
+        alignItems:'center',
+        flexDirection:'row',
+        paddingLeft:15,
+        marginBottom:10
+    },
+    allButton:{
+        marginLeft:120,
+        marginTop:20,
+        width:150,
+        height:40,
+        backgroundColor:'#F5EFE7',
+        borderRadius:5,
+        justifyContent:'flex-start',
+        alignItems:'center',
+        flexDirection:'row',
+        paddingLeft:15,
+    },
+    modalButtonTitle:{
+        color:'black',
+    },
+    buttonImage:{
+        width:30,
+        height:30,
+        marginRight:10
+    },
+    listView:{
+        paddingBottom:10,
+        paddingTop:20,
+        paddingLeft:40
     }
 })

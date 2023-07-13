@@ -1,6 +1,6 @@
 import api from '../index'
 import Constants from '../Constants';
-import { getToken } from "../config";
+import { getToken } from "../../config";
 export const create = (from_id,to_id,message) => {
   return api(
     Constants.message.create,

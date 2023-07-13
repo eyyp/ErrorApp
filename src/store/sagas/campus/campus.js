@@ -1,7 +1,7 @@
 import { put, call} from 'redux-saga/effects';
 import * as actions from '../../actions/user/user_check';
 import { campus } from '../../../services/method/campus';
-export default function* campus(action) {
+export default function* CampusSaga(action) {
 
   try{
     yield put(actions.enableLoader());
