@@ -17,7 +17,6 @@ const ShareCard = (props) =>{
         setReactUserShare(props.reactUser.find((element)=>{
             return element.share_id == props.item.share.share_id
         }))
-        console.log('http://yonetimpanel.com/admin/uploads/avatar/'+ props.item.user?.avatar + '.png')
     },[])
 
     const sendComment = () =>{

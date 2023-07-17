@@ -203,6 +203,9 @@ export const styles =  StyleSheet.create({
     row:{
         flexDirection:'row'
     },
+    scroll:{
+        marginBottom:60
+    },
     modalTitle:{
         color:'#F5EFE7',
         marginLeft:160,

@@ -6,15 +6,20 @@ import { io } from "socket.io-client";
 const Message = (props) =>{
     const [messages,setMessages] = useState([]);
     const [mesaj,setMesaj] = useState('');
+    const [nick,setNick] = useState('');
+    const [avatar,setAvatar] = useState(1);
     const dispatch = useDispatch();
     const userReducer = useSelector(state=>state.UserCheck);
     const messageToReducer = useSelector(state=>state.MessageTo);
+    const userFindReducer = useSelector(state =>state.UserFind);
     const {userCheck} = userReducer;
     const {messageTo} = messageToReducer;
+    const {userFind} = userFindReducer;
 
     const SERVER_URL = 'http://192.168.1.155:8080';
 
     useEffect(()=>{
+        dispatch(actions.UserFind(props.route.params.message.to_id))
         const socket = io(SERVER_URL);
         socket.emit('set username', props.route.params.message.from_id);
         socket.on('chat message', (data) => {
@@ -25,6 +30,11 @@ const Message = (props) =>{
           socket.disconnect();
         };
     },[])
+
+    useEffect(()=>{
+        setNick(userFind.nick);
+        setAvatar(userFind.avatar);
+    },[userFind])
 
     useEffect(()=>{
         dispatch(actions.MessageTo(props.route.params.message.from_id,props.route.params.message.to_id))
@@ -41,8 +51,13 @@ const Message = (props) =>{
           to: props.route.params.message.to_id, 
           message: mesaj,
         };
+        const mesajTemp = {
+            from_id: props.route.params.message.from_id,
+            to_id: props.route.params.message.to_id, 
+            message: mesaj,
+        }
         socket.emit('chat message', data);
-        setMessages((prevMessages) => [...prevMessages, data]);
+        setMessages((prevMessages) => [...prevMessages, mesajTemp]);
       };
 
     return(
@@ -50,9 +65,9 @@ const Message = (props) =>{
             <View style={styles.tabRow}>
                 <Image 
                     style={styles.avatar}
-                    source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/20.png'}}
+                    source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/'+ avatar +'.png'}}
                 />
-                <Text style={styles.nickText}>Lorem İpsum</Text>
+                <Text style={styles.nickText}>{nick}</Text>
             </View>
             <ScrollView style={styles.messageContainer}>
                 {messages.map((item,index)=>
@@ -148,7 +163,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#F5EFE7',
         borderRadius:5,
         fontSize:12,
-        margin:5
+        margin:5,
+        paddingLeft:10
     },
     sendButton:{
         width:50,

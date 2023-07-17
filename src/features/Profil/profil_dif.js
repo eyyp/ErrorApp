@@ -11,13 +11,17 @@ const ProfilDif = (props) => {
     const [bio,setBio] = useState('');
     const [avatar,setAvatar] = useState(1);
     const [reactUser, setReactUser] = useState([]);
+    const [userid,setUserId] = useState('');
+    const [youid,setYouId] = useState('');
     const dispatch = useDispatch();
     const sharesReducer = useSelector(state=>state.ShareUser)
     const reactUserShareReducer = useSelector(state=>state.ReactShareUser)
-    const userReducer = useSelector(state =>state.UserFind);  
+    const userReducer = useSelector(state =>state.UserFind);
+    const userCheckReducer = useSelector(state=>state.UserCheck);  
     const {reactShareUser, reactShareUserStatus} = reactUserShareReducer;
     const {shareUser} = sharesReducer;
     const {userFind} = userReducer;
+    const {userCheck} = userCheckReducer;
 
     useEffect(()=>{
         dispatch(actions.UserFind(props.route.params.user_id))
@@ -28,9 +32,14 @@ const ProfilDif = (props) => {
     },[shareUser])
 
     useEffect(()=>{
+        setYouId(userCheck.user_id)
+    },[userCheck]);
+
+    useEffect(()=>{
         setNick(userFind.nick);
         setBio(userFind.bio_text);
         setAvatar(userFind.avatar);
+        setUserId(userFind.user_id);
     },[userFind])
 
     useEffect(()=>{
@@ -53,7 +62,7 @@ const ProfilDif = (props) => {
                 <View style={styles.bioRow}>
                     <Text style={styles.bioText}>{bio}</Text>
                 </View>
-                <TouchableOpacity style={styles.messageButton}>
+                <TouchableOpacity style={styles.messageButton} onPress={()=>props.navigation.navigate("Message",{message:{from_id:youid,to_id:userid}})}>
                     <Text style={styles.messageButtonText}>Mesaj Gönder</Text>
                 </TouchableOpacity>
             </View>
@@ -101,7 +110,8 @@ const styles = StyleSheet.create({
     },
     ShareRow:{
         width:390,
-        paddingVertical:10
+        paddingTop:10,
+        marginBottom:110
     },
     messageButton:{
         marginBottom:10,

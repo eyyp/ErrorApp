@@ -40,12 +40,12 @@ const ProfilDif = (props) => {
     },[userCheck])
 
     return(
-        <View>
+        <View style={styles.body}>
             <View style={styles.tabRow}>
                 <View style={styles.row}>
                     <Image 
                         style={styles.image}
-                        source={ {uri:'http://yonetimpanel.com/admin/uploads/avatar/'+ avatar + '.png'}}
+                        source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/'+ avatar + '.png'}}
                     />
                     <View style={styles.nickRow}>
                         <Text style={styles.nickText}>{nick}</Text>
@@ -65,13 +65,16 @@ const ProfilDif = (props) => {
             </View>
             <ScrollView style={styles.ShareRow}>
                 {shares.map((item,index) => {
-                    return <ShareCard item={item} reactUser={reactUser} key={index} index={index} navigation={props.navigation}/>
+                    return <ShareCard key={index.toString()} item={item} reactUser={reactUser}  index={index} navigation={props.navigation}/>
                 })}
             </ScrollView>
         </View>
     );
 }
 const styles = StyleSheet.create({
+    body:{
+        backgroundColor:'#F5EFE7',
+    },  
     tabRow:{
         ...shadow,
         backgroundColor:'#D8C4B6',
@@ -113,7 +116,8 @@ const styles = StyleSheet.create({
     },
     ShareRow:{
         width:390,
-        paddingVertical:10
+        paddingTop:10,
+        marginBottom:60
     },
     messageButton:{
         marginBottom:10,

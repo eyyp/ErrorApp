@@ -33,7 +33,7 @@ const Vote = (props) =>{
 
     return(
         <View style={styles.Body}>
-            <SearchBar setSearch={(text)=>setCampuss(filter(campuss,text))} />
+            <SearchBar setSearch={(text)=>setCampuss(filter(campuss,text))} text="Üniversite ara..."/>
             <FlatList 
                 data = {campuss}
                 renderItem={({item}) => <CampusButton item={item} onPress={()=>set(item.campus_id)} />}

@@ -83,7 +83,7 @@ const Home = (props) =>{
     },[checksElegant])
     return(
         <View style={styles.Body}>
-            <ScrollView>
+            <ScrollView style={styles.scroll}>
                 {homeVisible && <HomeTab navigation={props.navigation} user={userCheck} onPress={()=>setVisible(true)}/>}
                 <View style={styles.elegateRow}>
                     <Text style={styles.elegateTitle}>{elegants.title}</Text>

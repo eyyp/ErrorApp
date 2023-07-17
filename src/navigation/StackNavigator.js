@@ -33,6 +33,7 @@ export function HomeStackScreen({ navigation }) {
       }}>
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="ProfilDif" component={ProfilDif} />
+        <Stack.Screen name="Message" component={Message} />
       </Stack.Navigator>
     );
   }
@@ -56,6 +57,7 @@ export function HomeStackScreen({ navigation }) {
       }}>
         <Stack.Screen name="Profil" component={Profil} />
         <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="Message" component={Message} />
       </Stack.Navigator>
     );
   }

@@ -15,28 +15,24 @@ const Login = (props) =>{
     }
 
     useEffect(()=>{
-        if(userCheck.email){
-            if(userCheck.active === 1){
-                props.navigation.navigate("Vote")
-            }
-            else {
-                setMessage('Lütfen Emailinize gelen kod ile hesabınızı aktif ediniz')
-            }
-        }
+        setMessage('');
     },[])
 
     useEffect(()=>{
-        if(userCheck.email){
-            if(userCheck.active === 1){
-                props.navigation.navigate("Vote")
+        if(userStatus=='response'){
+            if(userCheck.status != 'dont'){
+                if(userCheck.active === 1){
+                    props.navigation.navigate("Vote")
+                }
+                else {
+                    setMessage('Lütfen Emailinize gelen kod ile hesabınızı aktif ediniz')
+                }
             }
-            else {
-                setMessage('Lütfen Emailinize gelen kod ile hesabınızı aktif ediniz')
+            else{
+                setMessage('Email veya şifreniz hatalı')
             }
         }
-        else{
-            setMessage('Email veya şifreniz hatalı')
-        }
+        
     },[userCheck])
 
     return(
@@ -49,7 +45,7 @@ const Login = (props) =>{
                 <Text style={{fontSize:22,color:'black'}}>Bi Kampüs</Text>
             </View>
             <View style={styles.inputRow}>
-                {(!!message && !!userCheck) && <Text style={styles.poupText}>{message}</Text>}
+                {!!message && <Text style={styles.poupText}>{message}</Text>}
                 <TextInput style={styles.input} autoCorrect={false} autoCapitalize='none' onChangeText={mail => setEmail(mail)} placeholder="Email" placeholderTextColor={'#000000'}/>
                 <TextInput style={styles.input} autoCorrect={false} autoCapitalize='none' onChangeText={password => setPassword(password)} secureTextEntry={true} placeholder="Şifre" placeholderTextColor={'#000000'}/>
                 <TouchableOpacity style={styles.button} disabled={userStatus === 'onLoader' ? true : false} onPress={() => login()}>
@@ -58,8 +54,12 @@ const Login = (props) =>{
                         : <Text style={styles.buttonText}>Giriş Yap</Text>
                     }
                 </TouchableOpacity>
-                <Text>{userCheck.userStatus}</Text>
             </View>
+            <View style={styles.line}></View>
+                <TouchableOpacity style={styles.signupButton} onPress={() => props.navigation.navigate("Signup")}>
+                <Text >Hesabın yok mu ?</Text>
+                    <Text style={{color:'#4F709C',paddingLeft:10}}>Kayıt Ol</Text>
+                </TouchableOpacity>
         </View>
     )
 }
@@ -104,5 +104,16 @@ const styles = StyleSheet.create({
         borderRadius:5,
         textAlignVertical:'center',
         paddingLeft:20
+    },
+    line:{
+        width:390,
+        height:1,
+        backgroundColor:'#4F709C',
+        marginTop:230
+    },
+    signupButton:{
+        marginTop:10,
+        marginLeft:110,
+        flexDirection:'row'
     }
 })

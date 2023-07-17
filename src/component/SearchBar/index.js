@@ -8,7 +8,7 @@ const SearchBar = (props) =>{
     
     return(
         <View style={styles.tabBar}>
-          <TextInput style={styles.input} placeholder="Kullanıcı Ara..." onChangeText={(text)=>props.setSearch(text)} placeholderTextColor="#9C9BA4" />
+          <TextInput style={styles.input} placeholder={props.text} onChangeText={(text)=>props.setSearch(text)} placeholderTextColor="#9C9BA4" />
           <Search style={styles.search}/>
         </View>
     );
