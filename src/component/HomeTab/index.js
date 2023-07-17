@@ -1,6 +1,5 @@
 import { StyleSheet,View,TouchableOpacity,Text,Image} from "react-native";
 import { clearToken } from "../../config";
-import { avatars } from "../../config";
 const HomeTab = (props) =>{
     return(
         <View style={styles.tabRow} >
