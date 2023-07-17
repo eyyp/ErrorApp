@@ -1,33 +1,33 @@
 import * as types from '../types'
 
-export const ReactShareUser = (user_id) => {
+export const  UserFind = (id) => {
     return {
-        type:types.REACT_SHARE_USER_REQUEST,
-        user_id
+        type:types.USER_FIND_REQUEST,
+        id
     }
 }
 
 export function Failed() {
     return {
-      type: types.REACT_SHARE_USER_FAILURE
+      type: types.USER_FIND_FAILURE
     };
 }
 
 export const enableLoader = () => {
     return {
-        type: types.REACT_SHARE_USER_LOADER
+        type: types.USER_FIND_ON_LOADER
     }
 }
 
 export const Response = (response) =>{
     return {
-        type: types.REACT_SHARE_USER_RESPONSE,
+        type: types.USER_FIND_RESPONSE,
         response,
     }
 }
 
 export function disableLoader() {
     return {
-      type: types.REACT_SHARE_USER_DISABLED_LOADER
+      type: types.USER_FIND_DISABLED_LOADER
     };
 }

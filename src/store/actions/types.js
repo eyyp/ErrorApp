@@ -54,6 +54,12 @@ export const USER_SHARE_DATA_DISABLED_LOADER = 'disabled_loader/share/data';
 export const USER_SHARE_DATA_FAILURE = 'failure/user/share/data';
 export const USER_SHARE_DATA_END = 'end/user/share/data';
 
+export const USER_FIND_REQUEST = 'request/user/find';
+export const USER_FIND_ON_LOADER = 'on_loader/user/find';
+export const USER_FIND_RESPONSE = 'response/user/find';
+export const USER_FIND_DISABLED_LOADER = 'disabled_loader/find';
+export const USER_FIND_FAILURE = 'failure/user/find';
+export const USER_FIND_END = 'end/user/find';
 
 
 export const SHARE_ALL_REQUEST = 'request/share/all';
@@ -92,7 +98,7 @@ export const SHARE_USER_FAILURE = 'failure/share/user';
 export const SHARE_USER_END = 'end/share/user';
 
 
-
+export const CAMPUS_SET = 'set/campus';
 export const CAMPUS_REQUEST = 'request/campus';
 export const CAMPUS_ON_LOADER = 'on_loader/campus';
 export const CAMPUS_RESPONSE = 'response/campus';

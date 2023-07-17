@@ -18,7 +18,7 @@ export const ReactShareUser = createReducer(initialState, {
     return {
       ...state,
       reactShareUserStatus:'response',
-      reactShareUser: [...state.reactShare,action.response]
+      reactShareUser: action.response
     };
   },
 

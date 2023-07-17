@@ -2,9 +2,6 @@ import { TouchableOpacity, View,Image,Text,StyleSheet} from "react-native";
 import { avatars } from "../../config";
 import { useEffect } from "react";
 const ProfilBar = (props) =>{
-    useEffect(()=>{
-        
-    },[])
     return(
         <View style={styles.container}>
             <TouchableOpacity style={styles.button} onPress={()=>props.navigation.navigate('ProfilDif',{user_id:props.item.user_id})}>

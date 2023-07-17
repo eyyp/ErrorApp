@@ -1,9 +1,8 @@
 import * as types from '../types'
 
-export const Campus = (id) => {
+export const Campus = () => {
     return {
         type:types.CAMPUS_REQUEST,
-        id
     }
 }
 
@@ -30,4 +29,11 @@ export function disableLoader() {
     return {
       type: types.CAMPUS_DISABLED_LOADER
     };
+}
+
+export const SelectCampus = (campus_id) =>{
+    return {
+        type: types.CAMPUS_SET,
+        campus_id
+      };
 }

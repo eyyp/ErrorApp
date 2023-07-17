@@ -6,7 +6,6 @@ export default function* ReactSaga(action) {
   try{
     yield put(actions.enableLoader());
     const response = yield call(create,action.user_id,action.share_id,action.like_type);
-    console.log("react Create:",response.data)
     if (response) {
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));

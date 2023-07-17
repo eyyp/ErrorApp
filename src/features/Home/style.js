@@ -108,7 +108,7 @@ export const styles =  StyleSheet.create({
     },
     elegateRow:{
         width:334,
-        height:100,
+        minHeight:65,
         justifyContent:'space-between',
         borderRadius:5,
         marginHorizontal:5,
@@ -162,6 +162,11 @@ export const styles =  StyleSheet.create({
         paddingBottom:4
     },
     elegateButtonText:{
+        color:'#D8C4B6',
+        fontSize:14,
+        fontWeight:'900'
+    },
+    elegateText:{
         color:'white',
         fontSize:14,
         fontWeight:'900'

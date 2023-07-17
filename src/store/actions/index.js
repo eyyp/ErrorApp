@@ -14,6 +14,7 @@ import * as shareAll from '../actions/share/share_all'
 import * as shareCategory from '../actions/share/share_category'
 import * as shareCreate from '../actions/share/share_create'
 import * as shareUser from '../actions/share/share_user'
+import * as shareCampus from '../actions/share/share_campus'
 import * as userChangeEmail from '../actions/user/user_chage_email'
 import * as userChangePassword from '../actions/user/user_change_password'
 import * as userCheck from '../actions/user/user_check'
@@ -24,6 +25,7 @@ import * as userShareData from '../actions/user/user_share_data'
 import * as userToken from '../actions/user/user_token'
 import * as elegant from '../actions/elegant/elegant'
 import * as ReactShareUser from '../actions/react/userShare'
+import * as UserFind from '../actions/user/user_find'
 export const actions = Object.assign(
     {},
     campus,
@@ -51,5 +53,7 @@ export const actions = Object.assign(
     userShareData,
     userToken,
     elegant,
-    ReactShareUser
+    ReactShareUser,
+    UserFind,
+    shareCampus
 );

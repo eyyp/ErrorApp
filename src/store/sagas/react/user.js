@@ -4,7 +4,7 @@ import {user} from '../../../services/method/react'
 export default function* ReactShareUserSaga(action) {
   try{
     yield put(actions.enableLoader());
-    const response = yield call(user,action.share_id,action.user_id);
+    const response = yield call(user,action.user_id);
       if (response) {
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));

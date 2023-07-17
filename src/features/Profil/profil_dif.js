@@ -1,8 +1,8 @@
-import { View,Text,Image,StyleSheet, TouchableOpacity} from "react-native";
+import { View,Text,Image,StyleSheet, TouchableOpacity,ScrollView} from "react-native";
 import { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ShareCard from "../../component/ShareCard";
-import { shadow } from "../../config";
+import { shadow} from "../../config";
 import { actions } from "../../store/actions";
 const ProfilDif = (props) => {
 
@@ -10,14 +10,17 @@ const ProfilDif = (props) => {
     const [nick,setNick] = useState('');
     const [bio,setBio] = useState('');
     const [avatar,setAvatar] = useState(1);
+    const [reactUser, setReactUser] = useState([]);
     const dispatch = useDispatch();
-    const shareUserReducer = useSelector(state=>state.ShareUser);
-    const userShareReducer = useSelector(state=>state.UserShareData);
-    const {shareUser} = shareUserReducer;
-    const {shareData} = userShareReducer;
+    const sharesReducer = useSelector(state=>state.ShareUser)
+    const reactUserShareReducer = useSelector(state=>state.ReactShareUser)
+    const userReducer = useSelector(state =>state.UserFind);  
+    const {reactShareUser, reactShareUserStatus} = reactUserShareReducer;
+    const {shareUser} = sharesReducer;
+    const {userFind} = userReducer;
+
     useEffect(()=>{
-        dispatch(actions.ShareUser(props.route.params.user_id))
-        dispatch(actions.UserShareData(props.route.params.user_id))
+        dispatch(actions.UserFind(props.route.params.user_id))
     },[])
 
     useEffect(()=>{
@@ -25,10 +28,15 @@ const ProfilDif = (props) => {
     },[shareUser])
 
     useEffect(()=>{
-        setNick(shareData.nick);
-        setBio(shareData.bio);
-        setAvatar(shareData.avatar)
-    },[shareData])
+        setNick(userFind.nick);
+        setBio(userFind.bio_text);
+        setAvatar(userFind.avatar);
+    },[userFind])
+
+    useEffect(()=>{
+        setReactUser(reactShareUser)
+        dispatch(actions.ShareUser(props.route.params.user_id))
+    },[reactShareUser])
 
     return(
         <View>
@@ -36,20 +44,24 @@ const ProfilDif = (props) => {
                 <View style={styles.row}>
                     <Image 
                         style={styles.image}
-                        source={require('../../assets/images/avatar/1.png')}
+                        source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/'+ avatar + '.png'}}
                     />
-                    <Text style={styles.nickText}>{nick}</Text>
+                    <View style={styles.nickRow}>
+                        <Text style={styles.nickText}>{nick}</Text>
+                    </View>
                 </View>
-                <Text style={styles.bioText}>{bio}</Text>
+                <View style={styles.bioRow}>
+                    <Text style={styles.bioText}>{bio}</Text>
+                </View>
                 <TouchableOpacity style={styles.messageButton}>
                     <Text style={styles.messageButtonText}>Mesaj Gönder</Text>
                 </TouchableOpacity>
             </View>
-            <View style={styles.ShareRow}>
+            <ScrollView style={styles.ShareRow}>
                 {shares.map((item,index) => {
-                    return <ShareCard item={item} key={index} index={index} navigation={props.navigation}/>
+                    return <ShareCard item={item} reactUser={reactUser} key={index} index={index} navigation={props.navigation}/>
                 })}
-            </View>
+            </ScrollView>
         </View>
     );
 }
@@ -71,17 +83,14 @@ const styles = StyleSheet.create({
         height:70
     },
     nickText:{
-        fontSize:15,
+        fontSize:12,
         fontWeight:'400',
-        color:'black',
-        marginLeft:15,
-        marginTop:20
+        color:'black'
     },
     bioText:{
         padding:15,
         color:'black',
-        fontWeight:'400',
-        fontSize:15
+        fontSize:12
     },
     line:{
         width:'95%',
@@ -101,12 +110,31 @@ const styles = StyleSheet.create({
         height:40,
         borderRadius:5,
         backgroundColor:'#F5EFE7',
+        alignSelf:'center',
         alignItems:'center',
         justifyContent:'center'
     },
     messageButtonText:{
         fontSize:15,
         fontWeight:'500'
+    },
+    nickRow:{
+        width:80,
+        height:30,
+        backgroundColor:'#F5EFE7',
+        borderRadius:5,
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:20,
+        marginLeft:5
+    },
+    bioRow:{
+        width:300,
+        height:120,
+        backgroundColor:'#F5EFE7',
+        alignSelf:'center',
+        borderRadius:5,
+        marginBottom:10
     }
 })
 export default ProfilDif;

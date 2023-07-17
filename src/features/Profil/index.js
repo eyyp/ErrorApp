@@ -1,22 +1,73 @@
-import { View,Text,Image,StyleSheet} from "react-native";
+import { View,Text,Image,StyleSheet, TouchableOpacity,ScrollView} from "react-native";
+import { useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ShareCard from "../../component/ShareCard";
-import {shadow} from '../../assets/styles/styles'
-const Profil = () => {
+import { shadow, avatars} from "../../config";
+import { actions } from "../../store/actions";
+const ProfilDif = (props) => {
+
+    const [shares,setShares] = useState([]);
+    const [nick,setNick] = useState('');
+    const [bio,setBio] = useState('');
+    const [gearVisible,setGearVisible] = useState(false);
+    const [avatar,setAvatar] = useState(0);
+    const [reactUser, setReactUser] = useState([]);
+    const dispatch = useDispatch();
+    const sharesReducer = useSelector(state=>state.ShareUser)
+    const reactUserShareReducer = useSelector(state=>state.ReactShareUser)
+    const userReducer = useSelector(state =>state.UserCheck); 
+    const {reactShareUser, reactShareUserStatus} = reactUserShareReducer;
+    const {shareUser} = sharesReducer;
+    const {userCheck} = userReducer;
+    useEffect(()=>{
+        dispatch(actions.ReactShareUser(userCheck.user_id))
+    },[])
+
+    useEffect(()=>{
+        setShares(shareUser)
+    },[shareUser])
+
+    useEffect(()=>{
+        setReactUser(reactShareUser)
+        dispatch(actions.ShareUser(userCheck.user_id))
+    },[reactShareUser])
+
+    useEffect(()=>{
+        setNick(userCheck.nick)
+        setBio(userCheck.bio_text)
+        setAvatar(userCheck.avatar)
+        setGearVisible(true)
+    },[userCheck])
+
     return(
-        <View >
+        <View>
             <View style={styles.tabRow}>
-                <View style={styles.row} >
+                <View style={styles.row}>
                     <Image 
                         style={styles.image}
-                        source={require('../../assets/images/avatar/1.png')}
+                        source={ {uri:'http://yonetimpanel.com/admin/uploads/avatar/'+ avatar + '.png'}}
                     />
-                    <Text style={styles.nickText}>@kişi</Text>
+                    <View style={styles.nickRow}>
+                        <Text style={styles.nickText}>{nick}</Text>
+                    </View>
+                    {gearVisible &&
+                        <TouchableOpacity onPress={()=>props.navigation.navigate("Settings",{user_id:userCheck.user_id})}>
+                            <Image 
+                                style={styles.gearImage}
+                                source={require('../../assets/icon/gear.png')}
+                            />
+                        </TouchableOpacity>
+                    }
                 </View>
-                <Text style={styles.bioText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</Text>
+                <View style={styles.bioRow}>
+                    <Text style={styles.bioText}>{bio}</Text>
+                </View>
             </View>
-            <View style={styles.ShareRow}>
-                <ShareCard />
-            </View>
+            <ScrollView style={styles.ShareRow}>
+                {shares.map((item,index) => {
+                    return <ShareCard item={item} reactUser={reactUser} key={index} index={index} navigation={props.navigation}/>
+                })}
+            </ScrollView>
         </View>
     );
 }
@@ -29,6 +80,12 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         marginTop:10
     },
+    gearImage:{
+        width:30,
+        height:30,
+        marginLeft:120,
+        marginTop:10
+    },
     row:{
         flexDirection:'row',
         padding:10,
@@ -38,17 +95,14 @@ const styles = StyleSheet.create({
         height:70
     },
     nickText:{
-        fontSize:15,
+        fontSize:12,
         fontWeight:'400',
-        color:'black',
-        marginLeft:15,
-        marginTop:20
+        color:'black'
     },
     bioText:{
         padding:15,
         color:'black',
-        fontWeight:'400',
-        fontSize:15
+        fontSize:12
     },
     line:{
         width:'95%',
@@ -60,6 +114,39 @@ const styles = StyleSheet.create({
     ShareRow:{
         width:390,
         paddingVertical:10
+    },
+    messageButton:{
+        marginBottom:10,
+        marginLeft:10,
+        width:150,
+        height:40,
+        borderRadius:5,
+        backgroundColor:'#F5EFE7',
+        alignSelf:'center',
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    messageButtonText:{
+        fontSize:15,
+        fontWeight:'500'
+    },
+    nickRow:{
+        width:80,
+        height:30,
+        backgroundColor:'#F5EFE7',
+        borderRadius:5,
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:20,
+        marginLeft:5
+    },
+    bioRow:{
+        width:300,
+        height:120,
+        backgroundColor:'#F5EFE7',
+        alignSelf:'center',
+        borderRadius:5,
+        marginBottom:10
     }
 })
-export default Profil;
+export default ProfilDif;

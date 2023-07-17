@@ -14,13 +14,15 @@ const Constants = {
         },
         share:{
             data:'user/share/data'
-        }
+        },
+        all:'user/all',
+        find:'user/find'
     },
     share:{
         all:'share/all',
         create:'share/create',
         category:'share/category',
-        campus:'share/category',
+        campus:'share/campus',
         user:'share/user'
     },
     campus:'campus',
@@ -33,11 +35,13 @@ const Constants = {
     react:{
         create:'react/create',
         share:'react/share',
-        user:'react/share/user'
+        user:'react/share/user',
+        all:'react/all'
     },
     elegant:'elegant',
     comment:{
-        create:'create'
+        create:'comment/create',
+        all:'comment/all'
     },
     checks:{
         create:'checks/elegant/create',

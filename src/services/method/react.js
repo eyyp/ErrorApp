@@ -19,10 +19,10 @@ export const share = (id) => {
   );
 }
 
-export const user = (share_id,user_id) => {
+export const user = (user_id) => {
   return api(
-    Constants.react.user,
-    {share_id,user_id},
+    Constants.react.user + '/' + user_id,
+    null,
     'get',
     getToken()
   );

@@ -4,6 +4,7 @@ import * as types from '../../actions/types';
 const initialState = {
   checkElegantStatus: 'basic',
   checksElegant: [],
+  error:''
 };
 
 export const ChecksElegant = createReducer(initialState, {

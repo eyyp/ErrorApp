@@ -1,35 +1,31 @@
 import { StyleSheet,View,TouchableOpacity,Text,Image} from "react-native";
 import { clearToken } from "../../config";
+import { avatars } from "../../config";
 const HomeTab = (props) =>{
     return(
         <View style={styles.tabRow} >
-        <TouchableOpacity style={styles.tabButton} onPress={()=>props.onPress()}>
-            <Image
-                style={styles.image}
-                source={require('../../assets/icon/menus.png')}
-            />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tabButton}>
-            <Image
-                style={styles.image}
-                source={require('../../assets/icon/messages.png')}
-            />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.userButton}>
-            <Text style={styles.userNick}>Lorem İpsum</Text>
-            <Image
-                style={styles.image}
-                source={require('../../assets/images/avatar/1.png')}
-            />
-        </TouchableOpacity>
-        <TouchableOpacity style={{marginTop:10,zIndex:999,flexDirection:'row',padding:5,borderRadius:5,backgroundColor:'#D8C4B6',width:100,height:30}} onPress={()=>{clearToken(),props.navigation.navigate("Login")}}>
-            <Image 
-                style={{width:25,height:25}}
-                source={require('../../assets/icon/logout.png')}
-            />
-            <Text style={{marginLeft:5}}>Çıkış yap</Text>
-        </TouchableOpacity>
-    </View>
+            <View style={{flexDirection:'row'}}>
+                <TouchableOpacity style={styles.tabButton} onPress={()=>props.onPress()}>
+                    <Image
+                        style={styles.image}
+                        source={require('../../assets/icon/menus.png')}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabButton} onPress={()=>props.navigation.navigate("MessageList")}>
+                    <Image
+                        style={styles.image}
+                        source={require('../../assets/icon/messages.png')}
+                    />
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={styles.userButton} onPress={()=>{props.navigation.navigate('Profil',{user_id:props.user.user_id})}}>
+                <Text style={styles.userNick}>{props.user.nick}</Text>
+                <Image
+                    style={styles.image}
+                    source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/' + props.user.avatar + '.png'}}
+                />
+            </TouchableOpacity>
+        </View>
     )
 }
 const shadow = {
@@ -53,6 +49,7 @@ const styles = StyleSheet.create({
         padding:10,
         alignSelf:'center',
         flexDirection:'row',
+        justifyContent:'space-between',
         ...shadow,
     },
     tabButton:{
@@ -67,14 +64,14 @@ const styles = StyleSheet.create({
     },
     userButton:{
         flexDirection:'row',
-        marginLeft:100,
-        width:116,
-        height:31,
+        minHeight:10,
+        minHeight:30,
         backgroundColor:'#F5EFE7',
         ...shadow,
-        borderRadius:23,
+        borderRadius:10,
         alignItems:'center',
-        paddingLeft:7
+        paddingLeft:10,
+        paddingRight:8
     },
     userNick:{
         color:'black',

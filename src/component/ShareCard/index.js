@@ -2,129 +2,128 @@ import { useState, useEffect} from 'react';
 import { View,Image, Text,TouchableOpacity,StyleSheet,ScrollView, TextInput} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../store/actions';
-import { avatars } from '../../config';
 const ShareCard = (props) =>{
-    const [commentVisible, setCommentVisible] = useState(false);
-    const [reactType,setReactType] = useState(0);
+    const [com,setCom] =useState([]);
+    const [comment,setComment] = useState('');
+    const [commentVisible,setCommentVisible] = useState(false);
+    const [reactUserShare,setReactUserShare] = useState({});
+    const [sendVisible,setSendVisible] = useState(false);
     const dispatch = useDispatch();
-    const userReducer = useSelector(state => state.UserShareData)
-    const reactShareReducer = useSelector(state => state.ReactShare)
-    const userCheckReducer = useSelector(state=> state.UserCheck);
-    const reactShareUserReducer = useSelector(state=> state.ReactShareUser)
-    const {reactShareUser}  = reactShareUserReducer;
-    const {shareData, shareDataStatus} = userReducer;
-    const {userCheck} = userCheckReducer;
-    const {reactShare, reactShareStatus} = reactShareReducer;
+    const userReducer = useSelector(state => state.UserCheck)
+    const commentReducer = useSelector(state => state.Comment)
+    const {userCheck} = userReducer;
+    const {commentCreate} = commentReducer;
     useEffect(()=>{
-        dispatch(actions.UserShareData(props.item.user_id))
-        dispatch(actions.ReactShare(props.item.share_id))
+        setReactUserShare(props.reactUser.find((element)=>{
+            return element.share_id == props.item.share.share_id
+        }))
+        console.log('http://yonetimpanel.com/admin/uploads/avatar/'+ props.item.user?.avatar + '.png')
     },[])
 
+    const sendComment = () =>{
+        dispatch(actions.CommentCreate(userCheck.user_id,props.item.share.share_id,comment));
+    }
+
     useEffect(()=>{
-        dispatch(actions.ReactShareUser(props.item.share_id,userCheck.user_id))
+        setSendVisible(true)
     },[userCheck])
 
     useEffect(()=>{
-        console.log("reactShareUser:",reactShareUser)
-    },[reactShareUser])
+        setComment('')
+    },[commentCreate])
+
     return(
         <View>
             <View style={styles.card}>
-                <TouchableOpacity style={styles.profilRow} onPress={()=>props.navigation.navigate('ProfilDif',{props:props.item.user_id})}>
-                { shareDataStatus === 'response' ? 
-                        <Image
-                            style={styles.avatarImage}
-                            source={avatars[shareData[0].avatar].url}
-                        />
-                    : <Image
-                        style={styles.clockImage}
-                        source={require('../../assets/icon/clock.png')}
-                        />
-                }
-                    <Text style={styles.nickText}>{props.share_id}{shareData[0] !== undefined && shareData[0].nick}</Text>
+                <TouchableOpacity style={styles.profilRow} onPress={()=>props.navigation.navigate("ProfilDif",{user_id:props.item.user.user_id})}>
+                    <Image
+                        style={styles.avatarImage}
+                        source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/' + props.item.user?.avatar + '.png'}}
+                    />
+                    <Text style={styles.nickText}>{props.item.user?.nick}</Text>
                 </TouchableOpacity>
                 <View style={styles.shareRow}>
-                    <Text style={styles.shareText}>{props.item.share_text}</Text>
+                    <Text style={styles.shareText}>{props.item.share?.share_text}</Text>
                 </View>
             </View>
             { !commentVisible &&
             <View>
                 <View style={styles.buttonRow} >
-                    <TouchableOpacity style={styles.reactFirstButton} onPress={()=>dispatch(actions.React(userCheck.user_id,props.item.share_id,1))}>
+                    <TouchableOpacity style={[styles.reactFirstButton,{backgroundColor:reactUserShare?.react_type == "1" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{props.navigation.navigate("Home");dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,1))}}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/like.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.reactSecondButton} onPress={()=>setCommentVisible(true)}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:'#CDCDCD'}]} onPress={()=>setCommentVisible(true)}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/comment.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.reactSecondButton} onPress={()=>dispatch(actions.React(userCheck.user_id,props.item.share_id,2))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "2" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,2))}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/happy.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.reactSecondButton} onPress={()=>dispatch(actions.React(userCheck.user_id,props.item.share_id,3))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "3" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,3))}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/shocked.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.reactSecondButton} onPress={()=>dispatch(actions.React(userCheck.user_id,props.item.share_id,4))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "4" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,4))}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/sad.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.reactSecondButton} onPress={()=>dispatch(actions.React(userCheck.user_id,props.item.share_id,5))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "5" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,5))}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/angry.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.reactSecondButton} onPress={()=>dispatch(actions.React(userCheck.user_id,props.item.share_id,5))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "6" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,5))}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/love.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.reactSecondButton} onPress={()=>dispatch(actions.React(userCheck.user_id,props.item.share_id,6))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "7" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,6))}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/thinking.png')}
                         />
                     </TouchableOpacity>
                 </View>
-                {/*<View style={styles.buttonRow}>
+                {<View style={styles.buttonRow}>
                     <View style={styles.reactCountFirstRow}>
-                        <Text style={styles.reactCountFirstText}>{reactShare[0] !== 'undefined' ? reactShare[props.index][0]?.count:0}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_1}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{reactShare[props.index][1] !== 'undefined' ? reactShare[props.index][1].count:0}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.comments.length}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{reactShare[props.index][2] !== 'undefined' ? reactShare[props.index][2].count:0}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_2}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{reactShare[props.index][3] !== 'undefined' ? reactShare[props.index][3].count:0}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_3}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{reactShare[props.index][4] !== 'undefined' ? reactShare[props.index][4].count:0}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_4}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{reactShare[props.index][5] !== 'undefined' ? reactShare[props.index][5].count:0}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_5}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{reactShare[props.index][6] !== 'undefined' ? reactShare[props.index][6].count:0}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_6}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{reactShare[props.index][7] !== 'undefined' ? reactShare[props.index][7].count:0}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_7}</Text>
                     </View>
-            </View>*/}
+            </View>}
             </View>
             }
             {commentVisible &&
@@ -136,46 +135,34 @@ const ShareCard = (props) =>{
                         />
                     </TouchableOpacity>
                     <ScrollView style={styles.commentRow}>
-                        <View style={styles.commentProfil}>
-                                <Image
-                                    style={styles.commentProfilImage}
-                                    source={require('../../assets/images/avatar/1.png')}
-                                />
-                                <View>
-                                    <Text style={styles.commentNick}>Lorem İpsum</Text>
-                                    <Text style={styles.commentText}>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                        Lorem sdfgsdfgsdfg asdfg asdf asdfg aasdfasdf asdf asdf asdf asdf as
-                                    </Text>
-                                </View>
-                        </View>
-                        <View style={styles.commentProfil}>
-                                <Image
-                                    style={{width:30,height:30,marginLeft:10,marginTop:12}}
-                                    source={require('../../assets/images/avatar/1.png')}
-                                />
-                                <View>
-                                    <Text style={styles.commentNick}>Lorem İpsum</Text>
-                                    <Text style={styles.commentText}>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                        Lorem sdfgsdfgsdfg asdfg asdf asdfg aasdfasdf asdf asdf asdf asdf as
-                                    </Text>
-                                </View>
-                        </View>
-                    </ScrollView>
-                    <View style={styles.Row}>
-                        <View style={styles.commentInputRow}>
-                            <TextInput style={styles.commentInput} placeholder="Yorum yaz..."/>
-                        </View>
-                        <View style={styles.commentButtonRow}>
-                                <View style={styles.commentButtonSecondRow}>
-                                    <Image 
-                                        style={styles.commentSendIcon}
-                                        source ={require('../../assets/icon/send.png')}
-                                    />
-                                </View>
+                    {props.item.comments.map((item,index)=>
+                        <View style={styles.commentProfil} key={index}>
+                        <Image
+                            style={styles.commentProfilImage}
+                            source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/'+ item.user.avatar +'.png'}}
+                        />
+                        <View>
+                            <Text style={styles.commentNick}>{item.user.nick}</Text>
+                            <Text style={styles.commentText}>{item.item.comment_text}</Text>
                         </View>
                     </View>
+                    )}
+                    </ScrollView>
+                    {sendVisible &&
+                        <View style={styles.Row}>
+                            <View style={styles.commentInputRow}>
+                                <TextInput style={styles.commentInput} placeholder="Yorum yaz..." onChangeText={text => setComment(text)} value={comment}/>
+                            </View>
+                            <TouchableOpacity style={styles.commentButtonRow} onPress={()=>sendComment()}>
+                                    <View style={styles.commentButtonSecondRow}>
+                                        <Image 
+                                            style={styles.commentSendIcon}
+                                            source ={require('../../assets/icon/send.png')}
+                                        />
+                                    </View>
+                            </TouchableOpacity>
+                        </View>
+                    }
                 </View>
             }
         </View>
@@ -198,17 +185,17 @@ const styles = StyleSheet.create({
     card:{
         backgroundColor:'#D8C4B6',
         width:334,
-        height:180,
+        minHeight:120,
         borderRadius:10,
         ...shadow,
         marginTop:10,
-        marginLeft:28
+        marginLeft:28,
+        paddingBottom:10
     },
     commentRow:{
         backgroundColor:'#D8C4B6',
         width:334,
         minHeight:120,
-        maxHeight:240,
         borderRadius:10,
         ...shadow,
         marginTop:10,
@@ -219,7 +206,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#D8C4B6',
         width:290,
         height:40,
-        borderRadius:10,
+        borderRadius:5,
         ...shadow,
         marginTop:10,
         marginLeft:28,
@@ -242,10 +229,11 @@ const styles = StyleSheet.create({
         marginTop:13,
         color:'#3F3F3F',
         fontSize:12,
-        width:132,
+        minWidth:80,
         height:26,
         borderRadius:5,
         paddingLeft:8,
+        paddingRight:8,
         backgroundColor:'#F5EFE7',
         paddingTop:4
     },
@@ -258,16 +246,17 @@ const styles = StyleSheet.create({
     },
     shareRow:{
         width:300,
-        height:100,
+        ninHeight:100,
         marginTop:14,
         flexDirection:'row',
         backgroundColor:'#F5EFE7',
         borderRadius:5,
         marginLeft:14,
+        paddingBottom:5
     },
     commentProfil:{
         width:300,
-        height:100,
+        minHeight:60,
         marginTop:14,
         flexDirection:'row',
         backgroundColor:'#F5EFE7',
@@ -287,7 +276,9 @@ const styles = StyleSheet.create({
         marginTop:5,
         marginRight:5,
         fontSize:10,
-        color:'#3F3F3F'
+        width:220,
+        color:'#3F3F3F',
+        marginBottom:10,
     },
     buttonRow:{
         flexDirection:'row',

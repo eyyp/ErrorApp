@@ -24,7 +24,8 @@ import { Campus } from './campus/campus';
 import { NickCheck } from './user/user_nick_check';
 import { UserShareData } from './user/user_share_data';
 import { ReactShare } from './react/react_share';
-import {ReactShareUser} from './react//user'
+import { ReactShareUser } from './react//user'
+import { UserFind } from './user/user_find';
 const reducers = combineReducers({
     ChangeEmail:ChangeEmail,
     ChangePassword:ChangePassword,
@@ -51,6 +52,7 @@ const reducers = combineReducers({
     NickCheck:NickCheck,
     UserShareData:UserShareData,
     ReactShare:ReactShare,
-    ReactShareUser:ReactShareUser
+    ReactShareUser:ReactShareUser,
+    UserFind:UserFind
 });
 export default reducers;

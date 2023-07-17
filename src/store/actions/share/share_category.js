@@ -1,9 +1,10 @@
 import * as types from '../types'
 
-export const ShareCategory = (id) => {
+export const ShareCategory = (campus_id,category_id) => {
     return {
         type:types.SHARE_CATEGORY_REQUEST,
-        id
+        campus_id,
+        category_id
     }
 }
 

@@ -72,3 +72,14 @@ export const shareData = (id) =>{
     getToken()
   );
 }
+
+export const oneUser = (id) =>{
+  return api(
+    Constants.user.find + '/' + id,
+    null,
+    'get',
+    getToken()
+  );
+}
+
+

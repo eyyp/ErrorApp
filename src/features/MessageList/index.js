@@ -1,28 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet,Image} from 'react-native';
 import { user,messages } from '../../services/mock';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../../store/actions';
 const MessageListPage = (props) => {
-  // Kullanıcının mesajlaşmalarının bir örneği
-  const messages = [
-    { id: 1, sender: 'John', content: 'Merhaba!' },
-    { id: 2, sender: 'Alice', content: 'Selam!' },
-    { id: 3, sender: 'John', content: 'Nasılsın?' },
-    { id: 4, sender: 'Alice', content: 'İyiyim, teşekkürler!' },
-    // ... Diğer mesajlar
-  ];
+  const [messages,setMessages] = React.useState([]);
+  const [avatar,setAvatar] = React.useState(0);
+  const dispatch = useDispatch();
+  const userReducer = useSelector(state=>state.UserCheck);
+  const messageReducer = useSelector(state=>state.MessageUser);
+  const {userCheck} = userReducer;
+  const {userMessage} = messageReducer;
+  useEffect(()=>{
+    dispatch(actions.MessageUser(userCheck.user_id));
+  },[userCheck])
 
-  // Mesaj öğelerini render etmek için kullanılan bileşen
+  useEffect(()=>{
+    setMessages(userMessage);
+  },[userMessage])
+
   const renderMessageItem = ({ item }) => (
-    <TouchableOpacity style={styles.messageItem} onPress={()=>props.navigation.navigate("ChatApp",item)}>
+    <TouchableOpacity style={styles.messageItem} onPress={()=>props.navigation.navigate("Message",item)}>
       <View style={styles.avatarRow}>
         <Image 
           style={styles.avatar}
-          source={require('../../assets/images/avatar/man.png')}
+          source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/' + item.user.avatar + '.png'}}
         />
       </View>
       <View>
-        <Text style={styles.senderText}>{item.sender}</Text>
-        <Text style={styles.contentText}>{item.content}</Text>
+        <Text style={styles.senderText}>{item.user.nick}</Text>
+        <Text style={styles.contentText}>{item.message.message}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -32,7 +39,7 @@ const MessageListPage = (props) => {
       <FlatList
         data={messages}
         renderItem={renderMessageItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.message.to_id.toString()}
       />
     </View>
   );
@@ -43,6 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:'#F5EFE7'
   },
   messageItem: {
     paddingTop:8,

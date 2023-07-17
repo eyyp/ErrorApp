@@ -1,15 +1,15 @@
 import React, { useEffect, useState} from 'react';
 import { View, TextInput, Button, FlatList, Text, StyleSheet} from 'react-native';
-import io from 'socket.io-client';
-
-const SERVER_URL = 'http://192.168.1.155:3000'; // Socket sunucusunun URL'si
 
 const Chat = (props) => {
+
   const [userid, setUserid] = useState(props.route.params.from_id);
   const [tonid,setToid] = useState(props.route.params.to_id);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  // Socket bağlantısını başlat ve mesajları dinle
+  
+  const SERVER_URL = 'http://192.168.1.155:3000';
+
   useEffect(() => {
     const socket = io(SERVER_URL);
     socket.emit('set username', userid);
@@ -41,7 +41,7 @@ const Chat = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 16 }}>
+    <View style={styles.Body}>
       <TextInput
         style={{ marginBottom: 8, height: 40, borderColor: 'gray', borderWidth: 1 }}
         placeholder="Mesajınızı girin"
@@ -63,12 +63,15 @@ const Chat = (props) => {
 
   return(
     <View style={styles.Body}>
-        <View style={styles.tabRow}></View>
+        <View style={styles.tabRow}>
+
+        </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
     Body:{
+      flex: 1,
       backgroundColor:'#F5EFE7'
     },
     container:{

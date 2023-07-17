@@ -4,6 +4,7 @@ import * as types from '../../actions/types';
 const initialState = {
   status: 'basic',
   campus: [],
+  selectCampus:''
 };
 
 export const Campus = createReducer(initialState, {
@@ -33,6 +34,13 @@ export const Campus = createReducer(initialState, {
     return { 
         ...state,
         status:'disabledLoader'
+    };
+  },
+
+  [types.CAMPUS_SET](state,action) {
+    return { 
+        ...state,
+        selectCampus:action.campus_id
     };
   },
 

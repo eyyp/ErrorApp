@@ -6,7 +6,6 @@ export default function* SearchSaga(action) {
   try{
     yield put(actions.enableLoader());
     const response = yield call(Search);
-    console.log(response.data)
     if (response) {
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));

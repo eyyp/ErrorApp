@@ -17,7 +17,7 @@ const Login = (props) =>{
     useEffect(()=>{
         if(userCheck.email){
             if(userCheck.active === 1){
-                props.navigation.navigate("Tab")
+                props.navigation.navigate("Vote")
             }
             else {
                 setMessage('Lütfen Emailinize gelen kod ile hesabınızı aktif ediniz')
@@ -28,7 +28,7 @@ const Login = (props) =>{
     useEffect(()=>{
         if(userCheck.email){
             if(userCheck.active === 1){
-                props.navigation.navigate("Tab")
+                props.navigation.navigate("Vote")
             }
             else {
                 setMessage('Lütfen Emailinize gelen kod ile hesabınızı aktif ediniz')

@@ -2,13 +2,13 @@ import { View,TouchableOpacity, Text,Image,StyleSheet} from "react-native";
 
 const CampusButton = (props) => {
     return(
-        <TouchableOpacity style={styles.Button}>
+        <TouchableOpacity style={styles.Button} onPress={()=>props.onPress()}>
             <Image 
                 style={{width:120,height:120}}
-                source={require('../../assets/Logo/üniLogo.png')}
+                source={{uri:'http://yonetimpanel.com/admin/uploads/logo/' + props.item.icon}}
             />
             <View style={styles.titleRow}>
-                <Text style={styles.title}>{props.item.Name}</Text>
+                <Text style={styles.title}>{props.item.campus_name}</Text>
             </View>
         </TouchableOpacity>
     );

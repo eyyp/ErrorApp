@@ -27,6 +27,7 @@ import NickCheckSaga from "./user/nickCheck";
 import UserShareData from "./user/user_share_data";
 import ReactShareSaga from "./react/share";
 import ReactShareUserSaga from "./react/user";
+import UserFind from "./user/find";
 export default function* sagas() {
     yield takeLatest(types.CAMPUS_REQUEST,CampusSaga);
     yield takeLatest(types.CATEGORY_REQUEST,CategorySaga);
@@ -53,6 +54,7 @@ export default function* sagas() {
     yield takeLatest(types.USER_TOKEN_REQUEST,TokenSaga);
     yield takeLatest(types.USER_NICK_CHECK_REQUEST,NickCheckSaga);
     yield takeLatest(types.USER_SHARE_DATA_REQUEST,UserShareData);
-    yield takeEvery(types.REACT_SHARE_REQUEST,ReactShareSaga);
     yield takeLatest(types.REACT_SHARE_USER_REQUEST,ReactShareUserSaga);
+    yield takeLatest(types.USER_FIND_REQUEST,UserFind);
+    yield takeEvery(types.REACT_SHARE_REQUEST,ReactShareSaga);
 }

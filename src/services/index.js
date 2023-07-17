@@ -14,6 +14,6 @@ const api = (path, params, methodP, token ) => {
     }
     return axios(Constants.BASE_URL + path, options).
     then(res =>res).
-    catch(error => console.log(error))
+    catch(error => console.log(path,error))
 }   
 export default api;

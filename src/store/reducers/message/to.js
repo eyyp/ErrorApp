@@ -18,7 +18,7 @@ export const MessageTo = createReducer(initialState, {
     return {
       ...state,
       status:'response',
-      messageTo : action.response
+      messageTo:action.response
     };
   },
 

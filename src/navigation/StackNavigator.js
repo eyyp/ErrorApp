@@ -4,6 +4,9 @@ import Search from '../features/Search'
 import Share from '../features/Share'
 import Profil from '../features/Profil'
 import ProfilDif from '../features/Profil/profil_dif';
+import Settings from '../features/Settings'
+import MessageListPage from '../features/MessageList';
+import Message from '../features/MessageList/message';
 import * as React from 'react';
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +17,10 @@ export function HomeStackScreen({ navigation }) {
         headerShown: false
       }}>
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="ProfilDif" component={ProfilDif} />
+        <Stack.Screen name="Profil" component={Profil} />
+        <Stack.Screen name="MessageList" component={MessageListPage} />
+        <Stack.Screen name="Message" component={Message} />
       </Stack.Navigator>
     );
   }
@@ -48,6 +55,7 @@ export function HomeStackScreen({ navigation }) {
         headerShown: false
       }}>
         <Stack.Screen name="Profil" component={Profil} />
+        <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>
     );
   }

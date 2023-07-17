@@ -1,8 +1,41 @@
-import { ScrollView, View,StyleSheet,TouchableOpacity,Text,Image, TextInput,Modal} from "react-native";
-import { useState } from "react";
-import TabBar from "../../component/TabBar";
-const Share = () =>{
-    const [visible,setVisible] = useState(false)
+import { ScrollView, View,StyleSheet,TouchableOpacity,Text,Image, TextInput,Modal,FlatList} from "react-native";
+import { useState, useEffect} from "react";
+import {actions} from '../../store/actions/index'
+import { useDispatch, useSelector } from 'react-redux';
+const Share = (props) =>{
+    const [visible,setVisible] = useState(false);
+    const [categorys,setCategorys] = useState([]);
+    const [selectCategory,setSelectCategeory] = useState('');
+    const [share,setShare] = useState('');
+    const [buttonVisible,setButtonVisible] = useState(false);
+    const dispatch = useDispatch();
+    const categoryReducer = useSelector(state=>state.Category);
+    const userReducer = useSelector(state=>state.UserCheck)
+    const createShareReducer = useSelector(state=>state.ShareCreate)
+    const campusReducer = useSelector(state=>state.Campus);
+    const {category, categoryStatus} = categoryReducer;
+    const {userCheck} = userReducer;
+    const {shareCreate} = createShareReducer;
+    const {selectCampus} = campusReducer;
+    useEffect(()=>{
+        setCategorys(category)
+    },[category])
+
+    useEffect(()=>{
+        setButtonVisible(true)
+        dispatch(actions.Category())
+    },[userCheck])
+
+    const sendShare = () => {
+        dispatch(actions.ShareCreate(userCheck.user_id,share,selectCategory,selectCampus))
+    }
+
+    useEffect(()=>{
+        if(shareCreate?.length != 'undefined'){
+            props.navigation.navigate("Profil")
+        }
+    },[shareCreate])
+
     return(
         <ScrollView style={styles.Body}>
                 <View>
@@ -11,13 +44,13 @@ const Share = () =>{
                     </TouchableOpacity>
                 </View>
                 <View style={styles.categoryRow}>
-                    <TextInput style={styles.multiInput} multiline={true} placeholder="Paylaşımınızı buraya giriniz..."/>
+                    <TextInput style={styles.multiInput} multiline={true} placeholder="Paylaşımınızı buraya giriniz..." onChangeText={text=>setShare(text)} value={share}/>
                 </View>
                 <View style={styles.buttonRow}>
-                    <TouchableOpacity style={styles.categoryButton}>
+                    <TouchableOpacity style={[styles.categoryButton,{opacity:(buttonVisible && share.length > 0 && selectCategory.length > 0) ? 1:0.5}]} disabled={!(buttonVisible && share.length > 0 && selectCategory.length > 0)} onPress={()=>sendShare()}>
                         <Text style={styles.buttonText}>Kaydet</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.categoryButton}>
+                    <TouchableOpacity style={styles.categoryButton} onPress={()=>{setSelectCategeory('');setShare('')}}>
                         <Text style={styles.buttonText}>Temizle</Text>
                     </TouchableOpacity>
                 </View>
@@ -33,40 +66,28 @@ const Share = () =>{
                                     />
                                 </TouchableOpacity>
                             </View>
-                            <ScrollView style={styles.modalScroll}>
-                                <View style={[styles.row,{marginTop:10}]}>
-                                    <TouchableOpacity style={styles.modalButton}>
-                                        <Image 
-                                            style={styles.buttonImage}
-                                            source={require('../../assets/images/cap2.png')}
-                                        />
-                                        <Text style={styles.modalButtonTitle}>Okul Duyuruları</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.modalButton}>
-                                        <Image 
-                                            style={styles.buttonImage}
-                                            source={require('../../assets/images/cap2.png')}
-                                        />
-                                        <Text style={styles.modalButtonTitle}>Okul Duyuruları</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={[styles.row,{marginTop:10}]}>
-                                    <TouchableOpacity style={styles.modalButton}>
-                                        <Image 
-                                            style={styles.buttonImage}
-                                            source={require('../../assets/images/cap2.png')}
-                                        />
-                                        <Text style={styles.modalButtonTitle}>Okul Duyuruları</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.modalButton}>
-                                        <Image 
-                                            style={styles.buttonImage}
-                                            source={require('../../assets/images/cap2.png')}
-                                        />
-                                        <Text style={styles.modalButtonTitle}>Okul Duyuruları</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </ScrollView>
+                            <TouchableOpacity style={styles.allButton} onPress={()=>dispatch(actions.ShareAll())}>
+                                <Image 
+                                    style={styles.buttonImage}
+                                    source={{uri:'http://yonetimpanel.com/admin/uploads/package.png'}}
+                                />
+                                <Text style={styles.modalButtonTitle}>Tümü</Text>
+                            </TouchableOpacity>
+                            <FlatList 
+                                data={categorys}
+                                numColumns={2} 
+                                renderItem={({item}) =>
+                                <TouchableOpacity style={[styles.modalButton,{backgroundColor:selectCategory == item.category_id ? '#3669C9' :'#F5EFE7'}]} onPress={()=>setSelectCategeory(item.category_id)}>
+                                    <Image 
+                                        style={styles.buttonImage}
+                                        source={{uri:'http://yonetimpanel.com/admin/uploads/' + item.icon}}
+                                    />
+                                    <Text style={styles.modalButtonTitle}>{item.category_name}</Text>
+                                </TouchableOpacity>}
+                                key={(item) => item.category_id} 
+                                keyExtractor={item => item.category_id} 
+                                contentContainerStyle={styles.listView} 
+                            />
                         </View>
                     </View>
                 </Modal>
@@ -86,6 +107,18 @@ const styles = StyleSheet.create({
         borderRadius:10,
         marginTop:15,
         paddingLeft:20,
+    },
+    allButton:{
+        marginLeft:120,
+        marginTop:20,
+        width:150,
+        height:40,
+        backgroundColor:'#F5EFE7',
+        borderRadius:5,
+        justifyContent:'flex-start',
+        alignItems:'center',
+        flexDirection:'row',
+        paddingLeft:15,
     },
     button:{
         backgroundColor:'#3669C9',
@@ -212,9 +245,11 @@ const styles = StyleSheet.create({
         height:40,
         backgroundColor:'#F5EFE7',
         borderRadius:5,
+        alignSelf:'center',
         justifyContent:'center',
         alignItems:'center',
-        flexDirection:'row'
+        flexDirection:'row',
+        marginBottom:6
     },
     buttonImage:{
         width:30,
@@ -223,6 +258,11 @@ const styles = StyleSheet.create({
     },
     modalButtonTitle:{
         color:'#D8C4B6'
+    },
+    listView:{
+        paddingBottom:10,
+        paddingTop:20,
+        paddingLeft:40
     }
 })
 export default Share;

@@ -26,6 +26,7 @@ export const shadow = {
 }
 
 export const avatars = [
+    {url:require('../assets/icon/clock.png')},
     {url:require('../assets/images/avatar/1.png')},
     {url:require('../assets/images/avatar/2.png')},
     {url:require('../assets/images/avatar/3.png')},

@@ -1,11 +1,11 @@
 import { put, call} from 'redux-saga/effects';
-import * as actions from '../../actions/share/share_user';
-import {user} from '../../../services/method/share'
-export default function* ShareUserSaga(action) {
+import * as actions from '../../actions/user/user_find';
+import { oneUser } from '../../../services/method/user';
+export default function* UserFind(action) {
 
   try{
     yield put(actions.enableLoader());
-    const response = yield call(user,action.user_id);
+    const response = yield call(oneUser,action.id);
     if (response) {
         yield put(actions.Response(response.data));
         yield put(actions.disableLoader({}));

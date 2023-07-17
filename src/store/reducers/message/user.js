@@ -3,7 +3,7 @@ import * as types from '../../actions/types';
 
 const initialState = {
   status: 'basic',
-  changeEmail: [],
+  userMessage: [],
 };
 
 export const MessageUser = createReducer(initialState, {
@@ -18,7 +18,7 @@ export const MessageUser = createReducer(initialState, {
     return {
       ...state,
       status:'response',
-      changeEmail : action.response
+      userMessage : action.response
     };
   },
 

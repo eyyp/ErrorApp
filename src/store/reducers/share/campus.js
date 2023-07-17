@@ -7,14 +7,14 @@ const initialState = {
 };
 
 export const ShareCampus = createReducer(initialState, {
-  [types.CAMPUS_ON_LOADER](state) {
+  [types.SHARE_CAMPUS_ON_LOADER](state) {
     return { 
         ...state,  
         status:'onLoader'  
     };
   },
 
-  [types.CAMPUS_RESPONSE](state, action) {
+  [types.SHARE_CAMPUS_RESPONSE](state, action) {
     return {
       ...state,
       status:'response',
@@ -22,21 +22,21 @@ export const ShareCampus = createReducer(initialState, {
     };
   },
 
-  [types.CAMPUS_END](state) {
+  [types.SHARE_CAMPUS_END](state) {
     return { 
         ...state,
         status:'end'
     };
   },
 
-  [types.CAMPUS_DISABLED_LOADER](state) {
+  [types.SHARE_CAMPUS_DISABLED_LOADER](state) {
     return { 
         ...state,
         status:'disabledLoader'
     };
   },
 
-  [types.CAMPUS_FAILURE](state) {
+  [types.SHARE_CAMPUS_FAILURE](state) {
     return {
       ...state,
       status:'failure'

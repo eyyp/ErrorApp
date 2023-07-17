@@ -1,9 +1,9 @@
 import * as types from '../types'
 
-export const ShareUser = (id) => {
+export const ShareUser = (user_id) => {
     return {
         type:types.SHARE_USER_REQUEST,
-        id
+        user_id
     }
 }
 

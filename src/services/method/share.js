@@ -19,11 +19,11 @@ export const create = (user_id,share_text,category_id,campus_id) => {
     );
 }
 
-export const category = (id) => {
+export const category = (campus_id,category_id) => {
     return api(
-      Constants.share.category + '/' + id,
-      null,
-      'get',
+      Constants.share.category,
+      {campus_id,category_id},
+      'post',
       getToken()
     );
 }
