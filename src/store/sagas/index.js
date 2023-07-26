@@ -17,7 +17,6 @@ import ShareCampusSaga from "./share/campus";
 import ShareCategorySaga from "./share/category";
 import ShareCreateSaga from "./share/create";
 import ShareUserSaga from "./share/user";
-import ChangeEmailSaga from "./user/chageEmail";
 import ChangePasswordSaga from "./user/changPassword";
 import ChecksSaga from "./user/check";
 import UserCreateSaga from "./user/create";
@@ -46,7 +45,6 @@ export default function* sagas() {
     yield takeLatest(types.SHARE_CATEGORY_REQUEST,ShareCategorySaga);
     yield takeLatest(types.SHARE_CREATE_REQUEST,ShareCreateSaga);
     yield takeLatest(types.SHARE_USER_REQUEST,ShareUserSaga);
-    yield takeLatest(types.USER_CHANGE_EMAİL_REQUEST,ChangeEmailSaga);
     yield takeLatest(types.USER_CHANGE_PASSWORD_REQUEST,ChangePasswordSaga);
     yield takeLatest(types.USER_CHECK_REQUEST,ChecksSaga);
     yield takeLatest(types.USER_CREATE_REQUEST,UserCreateSaga);
@@ -56,5 +54,4 @@ export default function* sagas() {
     yield takeLatest(types.USER_SHARE_DATA_REQUEST,UserShareData);
     yield takeLatest(types.REACT_SHARE_USER_REQUEST,ReactShareUserSaga);
     yield takeLatest(types.USER_FIND_REQUEST,UserFind);
-    yield takeEvery(types.REACT_SHARE_REQUEST,ReactShareSaga);
 }

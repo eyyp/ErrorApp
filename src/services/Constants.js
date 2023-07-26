@@ -1,5 +1,5 @@
 const Constants = {
-    BASE_URL: "http://192.168.1.155:8080/api/",
+    BASE_URL: "http://campusbackend.com:8080/api/",
     user:{
         check:'user/check',
         create:'user/create',

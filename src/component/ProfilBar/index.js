@@ -7,7 +7,7 @@ const ProfilBar = (props) =>{
             <TouchableOpacity style={styles.button} onPress={()=>props.navigation.navigate('ProfilDif',{user_id:props.item.user_id})}>
                 <Image 
                     style={styles.Image}
-                    source={props.item.avatar ? avatars[props.item.avatar].url :require('../../assets/images/avatar/1.png')}
+                    source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/' + props.item.avatar + '.png'} }
                 />
                 <Text style={styles.nickText}>{props.item.nick}</Text>
             </TouchableOpacity>

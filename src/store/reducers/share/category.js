@@ -7,14 +7,14 @@ const initialState = {
 };
 
 export const ShareCategory = createReducer(initialState, {
-  [types.CATEGORY_ON_LOADER](state) {
+  [types.SHARE_CATEGORY_ON_LOADER](state) {
     return { 
         ...state,  
         shareCategoryStatus:'onLoader'  
     };
   },
 
-  [types.CATEGORY_RESPONSE](state, action) {
+  [types.SHARE_CATEGORY_RESPONSE](state, action) {
     return {
       ...state,
       shareCategoryStatus:'response',
@@ -22,21 +22,21 @@ export const ShareCategory = createReducer(initialState, {
     };
   },
 
-  [types.CATEGORY_END](state) {
+  [types.SHARE_CATEGORY_END](state) {
     return { 
         ...state,
         shareCategoryStatus:'end'
     };
   },
 
-  [types.CATEGORY_DISABLED_LOADER](state) {
+  [types.SHARE_CATEGORY_DISABLED_LOADER](state) {
     return { 
         ...state,
         shareCategoryStatus:'disabledLoader'
     };
   },
 
-  [types.CATEGORY_FAILURE](state) {
+  [types.SHARE_CATEGORY_FAILURE](state) {
     return {
       ...state,
       shareCategoryStatus:'failure'

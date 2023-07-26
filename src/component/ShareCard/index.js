@@ -15,20 +15,28 @@ const ShareCard = (props) =>{
     const {commentCreate} = commentReducer;
     useEffect(()=>{
         setReactUserShare(props.reactUser.find((element)=>{
-            return element.share_id == props.item.share.share_id
+            return element.share_id == props.item.share?.share_id
         }))
     },[])
 
     const sendComment = () =>{
+        console.log("sendComment")
         dispatch(actions.CommentCreate(userCheck.user_id,props.item.share.share_id,comment));
     }
 
+    const SendReact = (no) => {
+        console.log("sendReact")
+        dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,no))
+    }
+
     useEffect(()=>{
+        console.log("userCheck")
         setSendVisible(true)
     },[userCheck])
 
     useEffect(()=>{
-        setComment('')
+        console.log("sendCreateComment")
+        setComment('');
     },[commentCreate])
 
     return(
@@ -48,7 +56,7 @@ const ShareCard = (props) =>{
             { !commentVisible &&
             <View>
                 <View style={styles.buttonRow} >
-                    <TouchableOpacity style={[styles.reactFirstButton,{backgroundColor:reactUserShare?.react_type == "1" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{props.navigation.navigate("Home");dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,1))}}>
+                    <TouchableOpacity style={[styles.reactFirstButton,{backgroundColor:reactUserShare?.react_type == "1" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(1)}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/like.png')}
@@ -60,37 +68,37 @@ const ShareCard = (props) =>{
                             source={require('../../assets/icon/comment.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "2" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,2))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "2" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(2)}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/happy.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "3" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,3))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "3" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(3)}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/shocked.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "4" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,4))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "4" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(4)}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/sad.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "5" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,5))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "5" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(5)}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/angry.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "6" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,5))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "6" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(6)}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/love.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "7" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,6))}>
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "7" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(7)}>
                         <Image
                             style={styles.image}
                             source={require('../../assets/icon/thinking.png')}
@@ -99,28 +107,28 @@ const ShareCard = (props) =>{
                 </View>
                 {<View style={styles.buttonRow}>
                     <View style={styles.reactCountFirstRow}>
-                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_1}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react?.react_type_1}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{props.item.comments.length}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.comments?.length}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_2}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react?.react_type_2}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_3}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react?.react_type_3}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_4}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react?.react_type_4}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_5}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react?.react_type_5}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_6}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react?.react_type_6}</Text>
                     </View>
                     <View style={styles.reactCountRow}>
-                        <Text style={styles.reactCountFirstText}>{props.item.react.react_type_7}</Text>
+                        <Text style={styles.reactCountFirstText}>{props.item.react?.react_type_7}</Text>
                     </View>
             </View>}
             </View>

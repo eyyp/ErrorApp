@@ -28,7 +28,7 @@ const Vote = (props) =>{
 
     const set = (campus_id) =>{
         dispatch(actions.SelectCampus(campus_id))
-        props.navigation.navigate("Tab")
+        props.navigation.navigate("Loader")
     }
 
     return(

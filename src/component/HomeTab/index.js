@@ -1,10 +1,9 @@
 import { StyleSheet,View,TouchableOpacity,Text,Image} from "react-native";
-import { clearToken } from "../../config";
 const HomeTab = (props) =>{
     return(
         <View style={styles.tabRow} >
             <View style={{flexDirection:'row'}}>
-                <TouchableOpacity style={styles.tabButton} onPress={()=>props.onPress()}>
+                <TouchableOpacity style={styles.tabButton} onPress={()=>{props.onPress()}}>
                     <Image
                         style={styles.image}
                         source={require('../../assets/icon/menus.png')}
@@ -17,11 +16,11 @@ const HomeTab = (props) =>{
                     />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.userButton} onPress={()=>{props.navigation.navigate('Profil',{user_id:props.user.user_id})}}>
+            <TouchableOpacity style={styles.userButton} onPress={()=>{props.navigation.navigate('Profil',{user_id:props.user?.user_id})}}>
                 <Text style={styles.userNick}>{props.user.nick}</Text>
                 <Image
                     style={styles.image}
-                    source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/' + props.user.avatar + '.png'}}
+                    source={{uri:'http://yonetimpanel.com/admin/uploads/avatar/' + props.user?.avatar + '.png'}}
                 />
             </TouchableOpacity>
         </View>

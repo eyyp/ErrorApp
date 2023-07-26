@@ -3,6 +3,7 @@ import Login from '../features/Login';
 import Signup from '../features/Signup';
 import TabNavigator from './TabNavigator';
 import Vote from '../features/Vote';
+import Loader from '../features/Loader';
 import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
 import { Provider } from 'react-redux';
@@ -20,6 +21,7 @@ export const MainNavigator = ({ navigation }) => {
             <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Vote" component={Vote} />
+            <Stack.Screen name="Loader" component={Loader} />
             <Stack.Screen name="Tab" component={TabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>

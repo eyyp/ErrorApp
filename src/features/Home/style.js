@@ -226,7 +226,6 @@ export const styles =  StyleSheet.create({
         marginRight:10,
         width:150,
         height:40,
-        backgroundColor:'#F5EFE7',
         borderRadius:5,
         justifyContent:'flex-start',
         alignItems:'center',

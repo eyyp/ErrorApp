@@ -7,6 +7,7 @@ import ProfilDif from '../features/Profil/profil_dif';
 import Settings from '../features/Settings'
 import MessageListPage from '../features/MessageList';
 import Message from '../features/MessageList/message';
+import Loader from '../features/Loader';
 import * as React from 'react';
 const Stack = createNativeStackNavigator();
 
