@@ -25,7 +25,7 @@ const Search = (props) =>{
     return(
         <View style={styles.Body}>
             <HomeTab navigation={props.navigation} user={userCheck} onPress={()=>props.navigation.navigate("Home")}/>
-            <SearchBar setSearch={(text)=>setUsers(filter(users,text))} text="Kullanıcı ara..."/>
+            <SearchBar setSearch={(text)=>setUsers(filter(users,text))} text="Kullanıcı ara..." reset={()=>setUsers(userSearch)}/>
             {users.map((item,index)=><ProfilBar item={item} key={index} navigation={props.navigation}/>)}
         </View>
     );

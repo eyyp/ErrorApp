@@ -21,7 +21,7 @@ const Vote = (props) =>{
 
     const filter = (array,keyword) => {
         array = array.filter(item =>
-            item.campus_name?.toLowerCase().includes(keyword)
+            item.campus_name?.toLowerCase().includes(keyword.toLowerCase())
           )
         return array;
     }
@@ -33,7 +33,7 @@ const Vote = (props) =>{
 
     return(
         <View style={styles.Body}>
-            <SearchBar setSearch={(text)=>setCampuss(filter(campuss,text))} text="Üniversite ara..."/>
+            <SearchBar setSearch={(text)=>setCampuss(filter(campuss,text))} text="Üniversite ara..." reset={()=>setCampuss(campus)} />
             <FlatList 
                 data = {campuss}
                 renderItem={({item}) => <CampusButton item={item} onPress={()=>set(item.campus_id)} />}

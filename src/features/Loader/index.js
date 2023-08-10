@@ -39,7 +39,7 @@ const Loader = (props) =>{
         <View style={{flex:1,backgroundColor:'#F5EFE7'}}>
             <Image 
             source={require('../../assets/images/cap2.png')}
-                style={{width:150,height:150,alignSelf:'center',marginTop:40}}
+                style={{width:150,height:200,alignSelf:'center',marginTop:40}}
             />
             <ActivityIndicator 
                 size="large"

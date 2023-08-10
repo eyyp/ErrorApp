@@ -4,6 +4,9 @@ import { useDispatch,useSelector } from "react-redux";
 import { actions } from "../../store/actions";
 const Settings = (props) =>{
     const [visible,setVisible] = useState(false);
+    const [visibleKvkk,setVisibleKvkk] = useState(false);
+    const [visibleUser,setVisibleUser] = useState(false);
+    const [visibleHow,setVisibleHow] = useState(false);
     const [password,setPassword] = useState('');
     const [passwordAgain,setPasswordAgain] = useState('');
     const [message,setMessage] = useState('');
@@ -50,6 +53,66 @@ const Settings = (props) =>{
                         <TouchableOpacity style={styles.saveButton} onPress={()=>save()}>
                             <Text style={styles.saveButtonText}>Kaydet</Text>
                         </TouchableOpacity>                
+                    </View>
+                }
+                <TouchableOpacity style={styles.settingsButton} onPress={()=>setVisibleKvkk(!visibleKvkk)}>
+                    <Text style={styles.setttingsButtonText}>KVkk Sözleşmesi</Text>
+                    {visibleKvkk ?
+                        <Image 
+                            style={styles.down}
+                            source={require('../../assets/icon/down.png')}
+                        />
+                        :<Image 
+                            style={styles.right}
+                            source={require('../../assets/icon/right.png')}
+                        />
+                    }
+                </TouchableOpacity>
+                {visibleKvkk &&
+                    <View style={styles.inputRow}>
+                        <View style={styles.textRow}>
+                            <Text></Text>  
+                        </View>            
+                    </View>
+                }
+                <TouchableOpacity style={styles.settingsButton} onPress={()=>setVisibleUser(!visibleUser)}>
+                    <Text style={styles.setttingsButtonText}>Kullanıcı Sözleşmesi</Text>
+                    {visibleUser ?
+                        <Image 
+                            style={styles.down}
+                            source={require('../../assets/icon/down.png')}
+                        />
+                        :<Image 
+                            style={styles.right}
+                            source={require('../../assets/icon/right.png')}
+                        />
+                    }
+                </TouchableOpacity>
+                {visibleUser &&
+                    <View style={styles.inputRow}>
+                        <View style={styles.textRow}>
+                            <Text></Text>  
+                        </View>            
+                    </View>
+                }
+                <TouchableOpacity style={styles.settingsButton} onPress={()=>setVisibleHow(!visibleHow)}>
+                    <Text style={styles.setttingsButtonText}>Nasıl Çalışır</Text>
+                    {visibleHow ?
+                        <Image 
+                            style={styles.down}
+                            source={require('../../assets/icon/down.png')}
+                        />
+                        :<Image 
+                            style={styles.right}
+                            source={require('../../assets/icon/right.png')}
+                        />
+                    }
+                </TouchableOpacity>
+                {visibleHow &&
+                    <View style={styles.inputRow}>
+                        <View style={styles.textRow}>
+                            <Text></Text>  
+                        </View>            
                     </View>
                 }
                 <TouchableOpacity style={styles.settingsButton} onPress={()=>props.navigation.navigate('Login')}>
@@ -104,8 +167,16 @@ const styles = StyleSheet.create({
     inputRow:{
         width:330,
         marginTop:10,
-        mniHeight:170,
+        minHeight:170,
         backgroundColor:'#D8C4B6',
+        borderRadius:5,
+        padding:15
+    },
+    textRow:{
+        width:300,
+        marginTop:10,
+        minHeight:170,
+        backgroundColor:'#F5EFE7',
         borderRadius:5,
         padding:15
     },

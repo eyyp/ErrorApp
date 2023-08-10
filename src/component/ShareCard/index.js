@@ -20,22 +20,18 @@ const ShareCard = (props) =>{
     },[])
 
     const sendComment = () =>{
-        console.log("sendComment")
         dispatch(actions.CommentCreate(userCheck.user_id,props.item.share.share_id,comment));
     }
 
     const SendReact = (no) => {
-        console.log("sendReact")
         dispatch(actions.React(props.item.user.user_id,props.item.share.share_id,no))
     }
 
     useEffect(()=>{
-        console.log("userCheck")
         setSendVisible(true)
     },[userCheck])
 
     useEffect(()=>{
-        console.log("sendCreateComment")
         setComment('');
     },[commentCreate])
 

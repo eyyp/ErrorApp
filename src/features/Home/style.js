@@ -204,7 +204,7 @@ export const styles =  StyleSheet.create({
         flexDirection:'row'
     },
     scroll:{
-        marginBottom:60
+        paddingBottom:20
     },
     modalTitle:{
         color:'#F5EFE7',

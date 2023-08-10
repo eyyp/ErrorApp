@@ -3,10 +3,12 @@ import { View,TouchableOpacity, Text,Image,StyleSheet} from "react-native";
 const CampusButton = (props) => {
     return(
         <TouchableOpacity style={styles.Button} onPress={()=>props.onPress()}>
-            <Image 
-                style={{width:120,height:120}}
-                source={{uri:'http://yonetimpanel.com/admin/uploads/logo/' + props.item.icon}}
-            />
+            <View style={styles.logoRow}>
+                <Image 
+                    style={styles.logo}
+                    source={{uri:'http://yonetimpanel.com/admin/uploads/logo/' + props.item.icon}}
+                />
+            </View>
             <View style={styles.titleRow}>
                 <Text style={styles.title}>{props.item.campus_name}</Text>
             </View>
@@ -27,12 +29,14 @@ const styles = StyleSheet.create({
     Button:{
         backgroundColor:'#D8C4B6',
         borderRadius:10,
-        height:180,
+        minHeight:180,
         width:160,
         alignItems:'center',
         justifyContent:'center',
         marginLeft:20,
         marginBottom:10,
+        paddingTop:10,
+        paddingBottom:10,
         ...shadow
     },
     title:{
@@ -47,6 +51,18 @@ const styles = StyleSheet.create({
         marginTop:7,
         alignItems:'center',
         justifyContent:'center'
+    },
+    logoRow:{
+        width:140,
+        height:140,
+        backgroundColor:'#F5EFE7',
+        borderRadius:999,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    logo:{
+        width:120,
+        height:120
     }
 })
 

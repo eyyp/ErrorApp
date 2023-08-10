@@ -39,10 +39,9 @@ const Login = (props) =>{
         <View style={styles.Body}>
             <View style={{marginLeft:140,marginTop:60}}>
                 <Image 
-                    style={{width:100,height:100}}
+                    style={{width:110,height:150}}
                     source={require('../../assets/images/cap2.png')}
                 />
-                <Text style={{fontSize:22,color:'black'}}>Bi Kampüs</Text>
             </View>
             <View style={styles.inputRow}>
                 {!!message && <Text style={styles.poupText}>{message}</Text>}

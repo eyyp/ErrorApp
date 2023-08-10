@@ -16,19 +16,20 @@ const Message = (props) =>{
     const {messageTo} = messageToReducer;
     const {userFind} = userFindReducer;
 
-    const SERVER_URL = 'http://192.168.1.155:8080';
+    const SERVER_URL = 'http://campusbackend.com';
 
     useEffect(()=>{
-        dispatch(actions.UserFind(props.route.params.message.to_id))
+        dispatch(actions.UserFind(props.route.params.user.user_id))
         const socket = io(SERVER_URL);
-        socket.emit('set username', props.route.params.message.from_id);
+        socket.emit('set username', userCheck?.user_id);
         socket.on('chat message', (data) => {
-          setMessages((prevMessages) => [...prevMessages, data]);
+            console.log(data)
+            setMessages((prevMessages) => [...prevMessages, data]);
         });
 
-        return () => {
+        /*return () => {
           socket.disconnect();
-        };
+        };*/
     },[])
 
     useEffect(()=>{
@@ -45,6 +46,7 @@ const Message = (props) =>{
     },[messageTo])
 
     const sendMessage = () => {
+        setMesaj('');
         const socket = io(SERVER_URL);
         const data = {
           from: props.route.params.message.from_id,
@@ -57,6 +59,7 @@ const Message = (props) =>{
             message: mesaj,
         }
         socket.emit('chat message', data);
+        dispatch(actions.MessageCreate(props.route.params.message.from_id,props.route.params.message.to_id,mesaj))
         setMessages((prevMessages) => [...prevMessages, mesajTemp]);
       };
 
@@ -69,9 +72,9 @@ const Message = (props) =>{
                 />
                 <Text style={styles.nickText}>{nick}</Text>
             </View>
-            <ScrollView style={styles.messageContainer}>
+            <ScrollView contentContainerStyle={styles.messageContainer}>
                 {messages.map((item,index)=>
-                    item.from_id == props.route.params.message.from_id 
+                    item.from_id == userCheck?.user_id
                     ?<Text key={index} style={styles.messageRightCard}>{item.message}</Text> :<Text key={index} style={styles.messageLeftCard}>{item.message}</Text>
                 )}   
             </ScrollView>
@@ -118,7 +121,8 @@ const styles = StyleSheet.create({
     },
     messageContainer:{
         padding:20,
-        height:580,
+        minHeight:40,
+        marginBottom:10
     },
     messageLeftCard:{
         maxWidth:150,
@@ -149,7 +153,7 @@ const styles = StyleSheet.create({
     },
     sendRow:{
         flexDirection:'row',
-        paddingLeft:5
+        paddingLeft:5,
     },
     inputRow:{
         width:320,

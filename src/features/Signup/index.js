@@ -19,9 +19,9 @@ const Signup = (props) =>{
     const [passwordAgain,setPasswordAgain] = useState('');
     const [gender,setGender] = useState();
     const [bio,setBio] = useState('');
-    const [userAc,setUserAc] = useState('false');
-    const [kvkk,setKvkk] = useState('false');
-    const [offer,setOffer] = useState('false');
+    const [userAc,setUserAc] = useState(false);
+    const [kvkk,setKvkk] = useState(false);
+    const [offer,setOffer] = useState(false);
     const [avatar,setAvatar] = useState('0');
     const [error,setError] = useState();
 
@@ -29,7 +29,7 @@ const Signup = (props) =>{
         const res = signUpValidation(email,password,passwordAgain,bio)
         if(res.situation){
             if(avatar !== '0' && userAc && kvkk && gender != null && nickStatus.status !== 'false'){
-                dispatch(actions.UserCreate(email,nick,password,gender,bio,avatar))
+                dispatch(actions.UserCreate(email,nick,password,gender,bio,avatar+1))
             }
         }
         else{
@@ -52,9 +52,7 @@ const Signup = (props) =>{
                     style={styles.logo}
                     source={require('../../assets/images/cap2.png')}
                 />     
-                <Text style={styles.logoText}>bi Kampüs</Text>
             </View>
-
             <View style={styles.inputRow}>
 
                 <Text style={[styles.errorMessage,{backgroundColor:!!error && 'red'}]}>{!!error ? error.message : ''}</Text>
@@ -98,10 +96,8 @@ const Signup = (props) =>{
                                 style={styles.checkImage}
                                 source={require('../../assets/icon/box.png')}
                             />
-                        :<Image 
-                                style={styles.checkImage}
-                                source={require('../../assets/icon/non.png')}
-                            />
+                        :<View style={styles.box}>
+                        </View>
                         }
                     </TouchableOpacity>
                     <Text style={styles.checkText}>Erkek</Text>
@@ -111,10 +107,8 @@ const Signup = (props) =>{
                                     style={styles.checkImage}
                                     source={require('../../assets/icon/box.png')}
                                 />
-                            :   <Image 
-                                    style={styles.checkImage}
-                                    source={require('../../assets/icon/non.png')}
-                                />
+                            :   <View style={styles.box}>
+                                </View>
                         }
                     </TouchableOpacity>
                     <Text style={styles.checkText}>Kız</Text>
@@ -126,10 +120,8 @@ const Signup = (props) =>{
                                     style={styles.checkImage}
                                     source={require('../../assets/icon/box.png')}
                                 />
-                            :   <Image 
-                                    style={styles.checkImage}
-                                    source={require('../../assets/icon/non.png')}
-                                />
+                            :   <View style={styles.box}>
+                            </View>
                         }
                     </TouchableOpacity>
                     <Text style={styles.checkText}>Kullanıcı & Üyelik Sözleşmesi' ni okudum, anladım ve kabul ediyorum.</Text>
@@ -141,10 +133,8 @@ const Signup = (props) =>{
                                     style={styles.checkImage}
                                     source={require('../../assets/icon/box.png')}
                                 />
-                            :   <Image 
-                                    style={styles.checkImage}
-                                    source={require('../../assets/icon/non.png')}
-                                />
+                            :   <View style={styles.box}>
+                            </View>
                         }
                     </TouchableOpacity>
                     <Text style={styles.checkText}>KVKK Metni’ni ve Aydınlatma Metni’ni okudum, anladım ve kabul ediyorum.</Text>
@@ -156,10 +146,8 @@ const Signup = (props) =>{
                                     style={styles.checkImage}
                                     source={require('../../assets/icon/box.png')}
                                 />
-                            :   <Image 
-                                    style={styles.checkImage}
-                                    source={require('../../assets/icon/non.png')}
-                                />
+                            :   <View style={styles.box}>
+                            </View>
                         }
                     </TouchableOpacity>
                     <Text style={styles.checkText}>Kampanya ve tanıtımlar için Email, Telefon ve Sms ile iletişim kurulmasını kabul ediyorum.</Text>
@@ -183,8 +171,8 @@ const styles = StyleSheet.create({
         marginTop:20
     },
     logo:{
-        width:100,
-        height:100
+        width:90,
+        height:120
     },
     errorMessage:{
         width:320,
@@ -205,6 +193,12 @@ const styles = StyleSheet.create({
         borderRadius:10,
         marginTop:15,
         paddingLeft:20,
+    },
+    box:{
+        width:20,
+        height:20,
+        borderRadius:5,
+        backgroundColor:'white'
     },
     button:{
         backgroundColor:'#4F709C',

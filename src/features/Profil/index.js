@@ -63,7 +63,7 @@ const ProfilDif = (props) => {
                     <Text style={styles.bioText}>{bio}</Text>
                 </View>
             </View>
-            <ScrollView style={styles.ShareRow}>
+            <ScrollView contentContainerStyle={styles.ShareRow}>
                 {shares.map((item,index) => {
                     return <ShareCard key={index.toString()} item={item} reactUser={reactUser}  index={index} navigation={props.navigation}/>
                 })}
@@ -116,8 +116,7 @@ const styles = StyleSheet.create({
     },
     ShareRow:{
         width:390,
-        paddingTop:10,
-        marginBottom:60
+        paddingVertical:20,
     },
     messageButton:{
         marginBottom:10,

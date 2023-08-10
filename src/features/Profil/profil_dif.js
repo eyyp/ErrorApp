@@ -62,11 +62,11 @@ const ProfilDif = (props) => {
                 <View style={styles.bioRow}>
                     <Text style={styles.bioText}>{bio}</Text>
                 </View>
-                <TouchableOpacity style={styles.messageButton} onPress={()=>props.navigation.navigate("Message",{message:{from_id:youid,to_id:userid}})}>
+                <TouchableOpacity style={styles.messageButton} onPress={()=>props.navigation.navigate("Message",{message:{from_id:youid,to_id:userid},user:{user_id:userid}})}>
                     <Text style={styles.messageButtonText}>Mesaj Gönder</Text>
                 </TouchableOpacity>
             </View>
-            <ScrollView style={styles.ShareRow}>
+            <ScrollView contentContainerStyle={styles.ShareRow}>
                 {shares.map((item,index) => {
                     return <ShareCard item={item} reactUser={reactUser} key={index} index={index} navigation={props.navigation}/>
                 })}
@@ -110,8 +110,7 @@ const styles = StyleSheet.create({
     },
     ShareRow:{
         width:390,
-        paddingTop:10,
-        marginBottom:110
+        paddingVertical:20
     },
     messageButton:{
         marginBottom:10,
