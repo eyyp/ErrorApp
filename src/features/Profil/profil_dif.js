@@ -18,7 +18,7 @@ const ProfilDif = (props) => {
     const reactUserShareReducer = useSelector(state=>state.ReactShareUser)
     const userReducer = useSelector(state =>state.UserFind);
     const userCheckReducer = useSelector(state=>state.UserCheck);  
-    const {reactShareUser, reactShareUserStatus} = reactUserShareReducer;
+    const {reactShareUser} = reactUserShareReducer;
     const {shareUser} = sharesReducer;
     const {userFind} = userReducer;
     const {userCheck} = userCheckReducer;

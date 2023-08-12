@@ -1,10 +1,11 @@
 import { View,Text,TouchableOpacity, TextInput,StyleSheet,Image,ScrollView} from "react-native";
-import { useEffect, useState} from "react";
+import { useEffect, useState, useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../store/actions";
 import { io } from "socket.io-client";
 const Message = (props) =>{
     const [messages,setMessages] = useState([]);
+    const [socket, setSocket] = useState(null);
     const [mesaj,setMesaj] = useState('');
     const [nick,setNick] = useState('');
     const [avatar,setAvatar] = useState(1);
@@ -18,18 +19,21 @@ const Message = (props) =>{
 
     const SERVER_URL = 'http://campusbackend.com';
 
+    const scrollViewRef = useRef();
+
     useEffect(()=>{
         dispatch(actions.UserFind(props.route.params.user.user_id))
-        const socket = io(SERVER_URL);
-        socket.emit('set username', userCheck?.user_id);
-        socket.on('chat message', (data) => {
-            console.log(data)
+        const newSocket = io(SERVER_URL);
+        setSocket(newSocket);
+        newSocket.emit('set username', userCheck?.user_id);
+        newSocket.on('chat message', (data) => {
             setMessages((prevMessages) => [...prevMessages, data]);
+            scrollViewRef.current.scrollToEnd({ animated: true })
         });
-
-        /*return () => {
-          socket.disconnect();
-        };*/
+        scrollViewRef.current.scrollToEnd({ animated: true })
+        return () => {
+            newSocket.disconnect();
+        };
     },[])
 
     useEffect(()=>{
@@ -46,8 +50,10 @@ const Message = (props) =>{
     },[messageTo])
 
     const sendMessage = () => {
+        if(!socket)
+        return;
+        scrollViewRef.current.scrollToEnd({ animated: true })
         setMesaj('');
-        const socket = io(SERVER_URL);
         const data = {
           from: props.route.params.message.from_id,
           to: props.route.params.message.to_id, 
@@ -72,7 +78,7 @@ const Message = (props) =>{
                 />
                 <Text style={styles.nickText}>{nick}</Text>
             </View>
-            <ScrollView contentContainerStyle={styles.messageContainer}>
+            <ScrollView contentContainerStyle={styles.messageContainer} ref={scrollViewRef}>
                 {messages.map((item,index)=>
                     item.from_id == userCheck?.user_id
                     ?<Text key={index} style={styles.messageRightCard}>{item.message}</Text> :<Text key={index} style={styles.messageLeftCard}>{item.message}</Text>
@@ -80,7 +86,7 @@ const Message = (props) =>{
             </ScrollView>
             <View style={styles.sendRow}>
                 <View style={styles.inputRow}>
-                    <TextInput style={styles.input} placeholder="Mesajınızı girin" value={mesaj} onChangeText={setMesaj}/>
+                    <TextInput style={styles.input} onFocus={()=>scrollViewRef.current.scrollToEnd({ animated: true })} placeholder="Mesajınızı girin" value={mesaj} onChangeText={setMesaj}/>
                 </View>
                 <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
                     <View style={styles.iconRow}>
