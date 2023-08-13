@@ -71,7 +71,7 @@ const Home = (props) =>{
 
     return(
         <View style={styles.Body}>
-            <ScrollView contentContainerStyle={styles.scroll}>
+            <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
                 {homeVisible && <HomeTab navigation={props.navigation} user={userCheck} onPress={()=>setVisible(true)}/>}
                 <View style={styles.elegateRow}>
                     <Text style={styles.elegateTitle}>{elegant?.title}</Text>

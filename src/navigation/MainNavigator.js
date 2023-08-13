@@ -5,6 +5,8 @@ import TabNavigator from './TabNavigator';
 import Vote from '../features/Vote';
 import Loader from '../features/Loader';
 import Message from '../features/MessageList/message';
+import KvkkAgremeent from '../features/Agremeent/kvkk';
+import UserAgremeent from '../features/Agremeent/user';
 import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
 import { Provider } from 'react-redux';
@@ -25,6 +27,8 @@ export const MainNavigator = ({ navigation }) => {
             <Stack.Screen name="Loader" component={Loader} />
             <Stack.Screen name="Tab" component={TabNavigator} />
             <Stack.Screen name="Message" component={Message} />
+            <Stack.Screen name="Kvkk" component={KvkkAgremeent} />
+            <Stack.Screen name="UserAgremeent" component={UserAgremeent} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

@@ -63,7 +63,7 @@ const ProfilDif = (props) => {
                     <Text style={styles.bioText}>{bio}</Text>
                 </View>
             </View>
-            <ScrollView contentContainerStyle={styles.ShareRow}>
+            <ScrollView contentContainerStyle={styles.ShareRow} showsVerticalScrollIndicator={false}>
                 {shares.map((item,index) => {
                     return <ShareCard key={index.toString()} item={item} reactUser={reactUser}  index={index} navigation={props.navigation}/>
                 })}

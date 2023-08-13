@@ -46,7 +46,10 @@ const Signup = (props) =>{
     },[userCreate])
 
     return(
-        <ScrollView style={styles.Body} showsHorizontalScrollIndicator={false}>            
+        <ScrollView style={styles.Body} showsHorizontalScrollIndicator={false}>
+            <Image 
+                source={require('../../assets/icon/left.png')}
+            />            
             <View style={styles.logoRow}>
                 <Image 
                     style={styles.logo}
@@ -124,7 +127,10 @@ const Signup = (props) =>{
                             </View>
                         }
                     </TouchableOpacity>
-                    <Text style={styles.checkText}>Kullanıcı & Üyelik Sözleşmesi' ni okudum, anladım ve kabul ediyorum.</Text>
+                    <TouchableOpacity style={[styles.agreementButton,styles.row]} onPress={()=>props.navigation.navigate("UserAgremeent")}>
+                        <Text style={styles.agreementButtonText}>Kullanıcı & Üyelik Sözleşmesi'</Text>
+                        <Text style={styles.agreementText}> anladım ve kabul ediyorum.</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.checkButton} onPress={()=>setKvkk(!kvkk)}>
@@ -137,7 +143,13 @@ const Signup = (props) =>{
                             </View>
                         }
                     </TouchableOpacity>
-                    <Text style={styles.checkText}>KVKK Metni’ni ve Aydınlatma Metni’ni okudum, anladım ve kabul ediyorum.</Text>
+                    <TouchableOpacity style={styles.agreementButton} onPress={()=>props.navigation.navigate("Kvkk")}>
+                        <View style={styles.row}>
+                            <Text style={styles.agreementButtonText}>KVKK Metni’ni ve Aydınlatma Metni’</Text>
+                            <Text style={styles.agreementText}>ni okudum,</Text>
+                        </View>
+                        <Text style={styles.agreementText}>anladım ve kabul ediyorum.</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.checkButton} onPress={()=>setOffer(!offer)}>
@@ -230,6 +242,20 @@ const styles = StyleSheet.create({
         fontSize:12,
         marginRight:10,
         paddingRight:40
+    },
+    agreementText:{
+        color:'black',
+        fontSize:12,
+        marginRight:10,
+        paddingRight:40
+    },
+    agreementButtonText:{
+        marginLeft:5,
+        color:'blue',
+        fontSize:12,
+    },
+    agreementButton:{
+        marginTop:11,
     },
     checkImage:{
         width:20,

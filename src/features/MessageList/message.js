@@ -9,6 +9,7 @@ const Message = (props) =>{
     const [mesaj,setMesaj] = useState('');
     const [nick,setNick] = useState('');
     const [avatar,setAvatar] = useState(1);
+    const [to,setTo] = useState();
     const dispatch = useDispatch();
     const userReducer = useSelector(state=>state.UserCheck);
     const messageToReducer = useSelector(state=>state.MessageTo);
@@ -22,12 +23,23 @@ const Message = (props) =>{
     const scrollViewRef = useRef();
 
     useEffect(()=>{
+        if(userCheck?.user_id == props.route.params.message.to_id){
+            setTo(props.route.params.message.from_id);
+        }
+        else{
+            setTo(props.route.params.message.to_id);
+        }
         dispatch(actions.UserFind(props.route.params.user.user_id))
         const newSocket = io(SERVER_URL);
         setSocket(newSocket);
         newSocket.emit('set username', userCheck?.user_id);
         newSocket.on('chat message', (data) => {
-            setMessages((prevMessages) => [...prevMessages, data]);
+            const mes = {
+                from_id:data.from,
+                to_id:data.to,
+                message:data.message
+            }
+            setMessages((prevMessages) => [...prevMessages, mes]);
             scrollViewRef.current.scrollToEnd({ animated: true })
         });
         scrollViewRef.current.scrollToEnd({ animated: true })
@@ -42,7 +54,7 @@ const Message = (props) =>{
     },[userFind])
 
     useEffect(()=>{
-        dispatch(actions.MessageTo(props.route.params.message.from_id,props.route.params.message.to_id))
+        dispatch(actions.MessageTo(userCheck?.user_id,to))
     },[userCheck])
 
     useEffect(()=>{
@@ -55,17 +67,17 @@ const Message = (props) =>{
         scrollViewRef.current.scrollToEnd({ animated: true })
         setMesaj('');
         const data = {
-          from: props.route.params.message.from_id,
-          to: props.route.params.message.to_id, 
+          from: userCheck?.user_id,
+          to: to, 
           message: mesaj,
         };
         const mesajTemp = {
-            from_id: props.route.params.message.from_id,
-            to_id: props.route.params.message.to_id, 
+            from_id: userCheck?.user_id,
+            to_id: to, 
             message: mesaj,
         }
         socket.emit('chat message', data);
-        dispatch(actions.MessageCreate(props.route.params.message.from_id,props.route.params.message.to_id,mesaj))
+        dispatch(actions.MessageCreate(userCheck?.user_id,to,mesaj))
         setMessages((prevMessages) => [...prevMessages, mesajTemp]);
       };
 
@@ -78,7 +90,7 @@ const Message = (props) =>{
                 />
                 <Text style={styles.nickText}>{nick}</Text>
             </View>
-            <ScrollView contentContainerStyle={styles.messageContainer} ref={scrollViewRef}>
+            <ScrollView contentContainerStyle={styles.messageContainer} ref={scrollViewRef} showsVerticalScrollIndicator={false}>
                 {messages.map((item,index)=>
                     item.from_id == userCheck?.user_id
                     ?<Text key={index} style={styles.messageRightCard}>{item.message}</Text> :<Text key={index} style={styles.messageLeftCard}>{item.message}</Text>

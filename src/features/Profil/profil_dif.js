@@ -66,7 +66,7 @@ const ProfilDif = (props) => {
                     <Text style={styles.messageButtonText}>Mesaj Gönder</Text>
                 </TouchableOpacity>
             </View>
-            <ScrollView contentContainerStyle={styles.ShareRow}>
+            <ScrollView contentContainerStyle={styles.ShareRow} showsVerticalScrollIndicator={false}>
                 {shares.map((item,index) => {
                     return <ShareCard item={item} reactUser={reactUser} key={index} index={index} navigation={props.navigation}/>
                 })}

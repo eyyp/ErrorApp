@@ -55,10 +55,10 @@ const Login = (props) =>{
                 </TouchableOpacity>
             </View>
             <View style={styles.line}></View>
-                <TouchableOpacity style={styles.signupButton} onPress={() => props.navigation.navigate("Signup")}>
+            <TouchableOpacity style={styles.signupButton} onPress={() => props.navigation.navigate("Signup")}>
                 <Text >Hesabın yok mu ?</Text>
-                    <Text style={{color:'#4F709C',paddingLeft:10}}>Kayıt Ol</Text>
-                </TouchableOpacity>
+                <Text style={{color:'#4F709C',paddingLeft:10}}>Kayıt Ol</Text>
+            </TouchableOpacity>
         </View>
     )
 }
