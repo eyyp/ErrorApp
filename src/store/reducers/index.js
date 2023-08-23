@@ -26,6 +26,7 @@ import { UserShareData } from './user/user_share_data';
 import { ReactShare } from './react/react_share';
 import { ReactShareUser } from './react//user'
 import { UserFind } from './user/user_find';
+import { UserDelete } from './user/user_delete';
 const reducers = combineReducers({
     ChangeEmail:ChangeEmail,
     ChangePassword:ChangePassword,
@@ -53,6 +54,7 @@ const reducers = combineReducers({
     UserShareData:UserShareData,
     ReactShare:ReactShare,
     ReactShareUser:ReactShareUser,
-    UserFind:UserFind
+    UserFind:UserFind,
+    UserDelete:UserDelete
 });
 export default reducers;

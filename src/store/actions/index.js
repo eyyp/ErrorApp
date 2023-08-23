@@ -26,6 +26,7 @@ import * as userToken from '../actions/user/user_token'
 import * as elegant from '../actions/elegant/elegant'
 import * as ReactShareUser from '../actions/react/userShare'
 import * as UserFind from '../actions/user/user_find'
+import * as UserDelete from '../actions/user/user_delete'
 export const actions = Object.assign(
     {},
     campus,
@@ -55,5 +56,6 @@ export const actions = Object.assign(
     elegant,
     ReactShareUser,
     UserFind,
-    shareCampus
+    shareCampus,
+    UserDelete
 );

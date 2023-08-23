@@ -16,7 +16,8 @@ const Constants = {
             data:'user/share/data'
         },
         all:'user/all',
-        find:'user/find'
+        find:'user/find',
+        delete:'user/delete'
     },
     share:{
         all:'share/all',

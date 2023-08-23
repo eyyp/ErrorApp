@@ -2,11 +2,12 @@
   package="com.bikampus">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
+      android:debuggable="false"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:usesCleartextTraffic="true"
       android:allowBackup="false"

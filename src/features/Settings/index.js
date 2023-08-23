@@ -4,6 +4,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { actions } from "../../store/actions";
 const Settings = (props) =>{
     const [visible,setVisible] = useState(false);
+    const [deleteVisible,setDeleteVisible] = useState(false);
     const [visibleKvkk,setVisibleKvkk] = useState(false);
     const [visibleUser,setVisibleUser] = useState(false);
     const [visibleHow,setVisibleHow] = useState(false);
@@ -11,6 +12,8 @@ const Settings = (props) =>{
     const [passwordAgain,setPasswordAgain] = useState('');
     const [message,setMessage] = useState('');
     const {userCheck} = useSelector(state => state.UserCheck)
+    const deleteReducer = useSelector(state => state.UserCheck)
+    const {userDelete,deleteStatus} = deleteReducer;
     const {changePassword, status} = useSelector(state => state.ChangePassword)
     const dispatch = useDispatch()
 
@@ -28,6 +31,12 @@ const Settings = (props) =>{
             props.navigation.navigate("Login")
         }
     },[changePassword])
+
+    useEffect(()=>{
+        if(deleteStatus === 'response'){
+            props.navigation.navigate("Login")
+        }
+    },[userDelete])
 
     return(
         <ScrollView style={styles.Body} showsVerticalScrollIndicator={false}>
@@ -53,6 +62,32 @@ const Settings = (props) =>{
                         <TouchableOpacity style={styles.saveButton} onPress={()=>save()}>
                             <Text style={styles.saveButtonText}>Kaydet</Text>
                         </TouchableOpacity>                
+                    </View>
+                }
+                <TouchableOpacity style={styles.settingsButton} onPress={()=>setDeleteVisible(!deleteVisible)}>
+                    <Text style={styles.setttingsButtonText}>Hesabımı Sil</Text>
+                    {visible ?
+                        <Image 
+                            style={styles.down}
+                            source={require('../../assets/icon/down.png')}
+                        />
+                        :<Image 
+                            style={styles.right}
+                            source={require('../../assets/icon/right.png')}
+                        />
+                    }
+                </TouchableOpacity>
+                {deleteVisible &&
+                    <View style={styles.inputRow}>
+                        <Text style={styles.setttingsButtonText}> Hesabınızı silmek istediğinizden eminmisiniz.</Text>
+                        <View style={styles.row}>
+                            <TouchableOpacity style={styles.saveButton} onPress={()=>setDeleteVisible(false)}>
+                                <Text style={styles.saveButtonText}>İptal</Text>
+                            </TouchableOpacity>    
+                            <TouchableOpacity style={styles.saveButton} onPress={()=>{dispatch(actions.UserDelete(userCheck.user_id))}}>
+                                <Text style={styles.saveButtonText}>Kaydet</Text>
+                            </TouchableOpacity> 
+                        </View>     
                     </View>
                 }
                 <TouchableOpacity style={styles.settingsButton} onPress={()=>setVisibleKvkk(!visibleKvkk)}>
@@ -200,6 +235,12 @@ const styles = StyleSheet.create({
         paddingHorizontal:15,
         flexDirection:'row'
     },
+    row:{
+        flexDirection:'row',
+        marginTop:25,
+        justifyContent:'space-between',
+        paddingHorizontal:30
+    },
     setttingsButtonText:{
         color:'#000000'
     },
@@ -220,7 +261,7 @@ const styles = StyleSheet.create({
     inputRow:{
         width:330,
         marginTop:10,
-        minHeight:170,
+        minHeight:110,
         backgroundColor:'#D8C4B6',
         borderRadius:5,
         padding:15

@@ -28,6 +28,15 @@ export const NickCheck = (nick) => {
   );
 }
 
+export const Delete = (id) => {
+  return api(
+    Constants.user.delete + '/' + id,
+    null,
+    'get',
+    null
+  );
+}
+
 export const Search = () => {
     return api(
       Constants.user.search,

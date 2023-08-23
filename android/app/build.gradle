@@ -133,12 +133,19 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+     lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "com.bikampus"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 7
+        versionName "1.0.2"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -217,7 +224,7 @@ android {
             keyPassword 'android'
         }
         release {
-            if (project.hasProperty(MYAPP_UPLOAD_STORE_FILE)) {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
                 storeFile file(MYAPP_UPLOAD_STORE_FILE)
                 storePassword MYAPP_UPLOAD_STORE_PASSWORD
                 keyAlias MYAPP_UPLOAD_KEY_ALIAS
@@ -226,15 +233,16 @@ android {
         }
     }
     buildTypes {
-        debug {
+       debug {
             signingConfig signingConfigs.debug
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            debuggable false
         }
     }
 
@@ -250,7 +258,6 @@ android {
                 output.versionCodeOverride =
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
-
         }
     }
 }

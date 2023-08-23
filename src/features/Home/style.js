@@ -175,7 +175,8 @@ export const styles =  StyleSheet.create({
         flex: 1, 
         flexDirection: 'column', 
         justifyContent: 'center', 
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor:'#F5EFE7'
     },
     elegantInfoRow:{
         flexDirection:'row',
@@ -194,11 +195,9 @@ export const styles =  StyleSheet.create({
     modalBody:{
         backgroundColor:'#D8C4B6',
         width:'100%',
-        height:380,
+        height:'100%',
         alignSelf:'center',
         marginTop:'auto',
-        borderTopLeftRadius:20,
-        borderTopRightRadius:20
     },
     row:{
         flexDirection:'row'
@@ -257,5 +256,15 @@ export const styles =  StyleSheet.create({
         paddingBottom:10,
         paddingTop:20,
         paddingLeft:40
+    },
+    okButton:{
+        backgroundColor:'#F5EFE7',
+        width:150,
+        height:40,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:5, 
+        marginLeft:120,
+        marginBottom:300
     }
 })

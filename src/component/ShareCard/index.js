@@ -32,6 +32,13 @@ const ShareCard = (props) =>{
     },[userCheck])
 
     useEffect(()=>{
+        console.log(props.reactUser)
+        setReactUserShare(props.reactUser.find((element)=>{
+            return element.share_id == props.item.share?.share_id
+        }))
+    },[props.reactUser])
+
+    useEffect(()=>{
         setComment('');
     },[commentCreate])
 
@@ -52,11 +59,17 @@ const ShareCard = (props) =>{
             { !commentVisible &&
             <View>
                 <View style={styles.buttonRow} >
-                    <TouchableOpacity style={[styles.reactFirstButton,{backgroundColor:reactUserShare?.react_type == "1" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(1)}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/icon/like.png')}
-                        />
+                    <TouchableOpacity style={[styles.reactFirstButton,{backgroundColor:reactUserShare?.react_type == "1" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{SendReact(1);props.reset()}}>
+                        {reactUserShare?.react_type == "1" ?
+                            <Image
+                                style={styles.image}
+                                source={require('../../assets/icon/like.png')}
+                            />
+                            :<Image
+                                style={styles.image}
+                                source={require('../../assets/icon/gray-emoji/like.png')}
+                            />
+                        }
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:'#CDCDCD'}]} onPress={()=>setCommentVisible(true)}>
                         <Image
@@ -64,41 +77,77 @@ const ShareCard = (props) =>{
                             source={require('../../assets/icon/comment.png')}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "2" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(2)}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/icon/happy.png')}
-                        />
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "2" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{SendReact(2);props.reset()}}>
+                        {reactUserShare?.react_type == "2" ?
+                            <Image
+                                style={styles.image}
+                                source={require('../../assets/icon/happy.png')}
+                            />
+                            :<Image
+                                style={styles.image}
+                                source={require('../../assets/icon//gray-emoji/happy.png')}
+                            />
+                        }
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "3" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(3)}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/icon/shocked.png')}
-                        />
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "3" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{SendReact(3);props.reset()}}>
+                        {reactUserShare?.react_type == "3" ?
+                            <Image
+                                style={styles.image}
+                                source={require('../../assets/icon/shocked.png')}
+                            />
+                            :<Image
+                                style={styles.image}
+                                source={require('../../assets/icon/gray-emoji/shocked.png')}
+                            />
+                        }
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "4" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(4)}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/icon/sad.png')}
-                        />
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "4" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{SendReact(4);props.reset()}}>
+                        {reactUserShare?.react_type == "4" ?
+                            <Image
+                                style={styles.image}
+                                source={require('../../assets/icon/sad.png')}
+                            />
+                            :<Image
+                                style={styles.image}
+                                source={require('../../assets/icon/gray-emoji/sad.png')}
+                            />
+                        }
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "5" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(5)}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/icon/angry.png')}
-                        />
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "5" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{SendReact(5);props.reset()}}>
+                        {reactUserShare?.react_type == "5" ?
+                            <Image
+                                style={styles.image}
+                                source={require('../../assets/icon/angry.png')}
+                            />
+                            :<Image
+                                style={styles.image}
+                                source={require('../../assets/icon/gray-emoji/angry.png')}
+                            />
+                        }
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "6" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(6)}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/icon/love.png')}
-                        />
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "6" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{SendReact(6);props.reset()}}>
+                        {reactUserShare?.react_type == "6" ?
+                            <Image
+                                style={styles.image}
+                                source={require('../../assets/icon/love.png')}
+                            />
+                            :<Image
+                                style={styles.image}
+                                source={require('../../assets/icon/gray-emoji/love.png')}
+                            />
+                        }
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "7" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>SendReact(7)}>
-                        <Image
-                            style={styles.image}
-                            source={require('../../assets/icon/thinking.png')}
-                        />
+                    <TouchableOpacity style={[styles.reactSecondButton,{backgroundColor:reactUserShare?.react_type == "7" ? '#D8C4B6':'#CDCDCD'}]} onPress={()=>{SendReact(7);props.reset()}}>
+                        {reactUserShare?.react_type == "7" ?
+                            <Image
+                                style={styles.image}
+                                source={require('../../assets/icon/thinking.png')}
+                            />
+                            :<Image
+                                style={styles.image}
+                                source={require('../../assets/icon/gray-emoji/thinking.png')}
+                            />
+                        }
                     </TouchableOpacity>
                 </View>
                 {<View style={styles.buttonRow}>

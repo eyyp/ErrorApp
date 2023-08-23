@@ -103,44 +103,42 @@ const Home = (props) =>{
                         </View>
                     }     
                 </View>
-                {shareCategorys.map((item,index) =><ShareCard item={item} reactUser={reactShareUser} key={index} index={index} navigation={props.navigation} />)}
+                {shareCategorys.map((item,index) =><ShareCard item={item} reactUser={reactShareUser} reset={()=>{dispatch(actions.ReactShareUser(userCheck.user_id));dispatch(actions.ShareCampus(selectCampus))}} key={index} index={index} navigation={props.navigation} />)}
             </ScrollView>
-            <Modal transparent={true} visible={visible} animationType="slide">
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalBody}>
-                        <View style={styles.row}>
-                            <Text style={styles.modalTitle}>Konular</Text>
-                            <TouchableOpacity onPress={()=>setVisible(false)}>
-                                <Image  
-                                    style={styles.closeImage}
-                                    source={require('../../assets/images/close.png')}
-                                />
+            <Modal transparent={true} visible={visible} animationIn="slideInLeft"
+        animationOut="slideOutRight">
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalBody}>
+                            <View style={styles.row}>
+                                <Text style={styles.modalTitle}>Konular</Text>
+                            </View>
+                            <TouchableOpacity style={[styles.allButton,{backgroundColor:selectCategory == 'all' ? '#4F709C' :'#F5EFE7'}]} onPress={()=>{setSelectCategory('all');dispatch(actions.ShareCampus(selectCampus))}}>
+                                    <Image 
+                                        style={styles.buttonImage}
+                                        source={{uri:'http://yonetimpanel.com/admin/uploads/package.png'}}
+                                    />
+                                    <Text style={[styles.modalButtonTitle,{color:selectCategory == 'all' ? 'white' :'black'}]}>Tümü</Text>
+                            </TouchableOpacity>
+                            <FlatList 
+                                data={category}
+                                numColumns={2} 
+                                renderItem={({item}) =>
+                                <TouchableOpacity style={[styles.modalButton,{backgroundColor:selectCategory == item.category_id ? '#4F709C' :'#F5EFE7'}]} onPress={()=>CategorySelect(item.category_id)}>
+                                    <Image 
+                                        style={styles.buttonImage}
+                                        source={{uri:'http://yonetimpanel.com/admin/uploads/' + item.icon}}
+                                    />
+                                    <Text style={[styles.modalButtonTitle,{color:selectCategory == item.category_id ? 'white' :'black'}]}>{item.category_name}</Text>
+                                </TouchableOpacity>}
+                                key={(item) => item.category_id} 
+                                keyExtractor={item => item.category_id} 
+                                contentContainerStyle={styles.listView} 
+                            />
+                            <TouchableOpacity style={styles.okButton} onPress={()=>setVisible(false)}>
+                                <Text style={[styles.modalButtonTitle,{color:'black'}]}>Tamam</Text>
                             </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={[styles.allButton,{backgroundColor:selectCategory == 'all' ? '#4F709C' :'#F5EFE7'}]} onPress={()=>{setSelectCategory('all');dispatch(actions.ShareCampus(selectCampus))}}>
-                                <Image 
-                                    style={styles.buttonImage}
-                                    source={{uri:'http://yonetimpanel.com/admin/uploads/package.png'}}
-                                />
-                                <Text style={[styles.modalButtonTitle,{color:selectCategory == 'all' ? 'white' :'black'}]}>Tümü</Text>
-                        </TouchableOpacity>
-                        <FlatList 
-                            data={category}
-                            numColumns={2} 
-                            renderItem={({item}) =>
-                            <TouchableOpacity style={[styles.modalButton,{backgroundColor:selectCategory == item.category_id ? '#4F709C' :'#F5EFE7'}]} onPress={()=>CategorySelect(item.category_id)}>
-                                <Image 
-                                    style={styles.buttonImage}
-                                    source={{uri:'http://yonetimpanel.com/admin/uploads/' + item.icon}}
-                                />
-                                <Text style={[styles.modalButtonTitle,{color:selectCategory == item.category_id ? 'white' :'black'}]}>{item.category_name}</Text>
-                            </TouchableOpacity>}
-                            key={(item) => item.category_id} 
-                            keyExtractor={item => item.category_id} 
-                            contentContainerStyle={styles.listView} 
-                        />
                     </View>
-                </View>
             </Modal>
         </View>
     )

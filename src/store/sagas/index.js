@@ -27,6 +27,7 @@ import UserShareData from "./user/user_share_data";
 import ReactShareSaga from "./react/share";
 import ReactShareUserSaga from "./react/user";
 import UserFind from "./user/find";
+import UserDeleteSaga from "./user/delete";
 export default function* sagas() {
     yield takeLatest(types.CAMPUS_REQUEST,CampusSaga);
     yield takeLatest(types.CATEGORY_REQUEST,CategorySaga);
@@ -54,4 +55,5 @@ export default function* sagas() {
     yield takeLatest(types.USER_SHARE_DATA_REQUEST,UserShareData);
     yield takeLatest(types.REACT_SHARE_USER_REQUEST,ReactShareUserSaga);
     yield takeLatest(types.USER_FIND_REQUEST,UserFind);
+    yield takeLatest(types.USER_DELETE_REQUEST,UserDeleteSaga);
 }

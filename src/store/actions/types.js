@@ -61,6 +61,13 @@ export const USER_FIND_DISABLED_LOADER = 'disabled_loader/find';
 export const USER_FIND_FAILURE = 'failure/user/find';
 export const USER_FIND_END = 'end/user/find';
 
+export const USER_DELETE_REQUEST = 'request/user/delete';
+export const USER_DELETE_ON_LOADER = 'on_loader/user/delete';
+export const USER_DELETE_RESPONSE = 'response/user/delete';
+export const USER_DELETE_DISABLED_LOADER = 'disabled_loader/user/delete';
+export const USER_DELETE_FAILURE = 'failure/user/delete';
+export const USER_DELETE_END = 'end/user/delete';
+
 
 export const SHARE_ALL_REQUEST = 'request/share/all';
 export const SHARE_ALL_ON_LOADER = 'on_loader/share/all';

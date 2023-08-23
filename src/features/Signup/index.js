@@ -47,9 +47,12 @@ const Signup = (props) =>{
 
     return(
         <ScrollView style={styles.Body} showsHorizontalScrollIndicator={false}>
-            <Image 
-                source={require('../../assets/icon/left.png')}
-            />            
+            <TouchableOpacity style={styles.backButton} onPress={()=>props.navigation.navigate("Login")}>
+                <Image 
+                    style={styles.backButtonImage}
+                    source={require('../../assets/icon/left.png')}
+                /> 
+            </TouchableOpacity>
             <View style={styles.logoRow}>
                 <Image 
                     style={styles.logo}
@@ -289,5 +292,13 @@ const styles = StyleSheet.create({
         marginTop:155,
         marginLeft:310,
         zIndex:998
+    },
+    backButtonImage:{
+        width:25,
+        height:25
+    },
+    backButton:{
+        marginTop:25,
+        marginLeft:25
     }
 })

@@ -60,7 +60,7 @@ const Message = (props) =>{
     useEffect(()=>{
         setMessages(messageTo)
     },[messageTo])
-
+    
     const sendMessage = () => {
         if(!socket)
         return;
