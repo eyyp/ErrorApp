@@ -9,9 +9,7 @@ const CampusButton = (props) => {
                     source={{uri:'http://yonetimpanel.com/admin/uploads/logo/' + props.item.icon}}
                 />
             </View>
-            <View style={styles.titleRow}>
                 <Text style={styles.title}>{props.item.campus_name}</Text>
-            </View>
         </TouchableOpacity>
     );
 }
@@ -27,8 +25,8 @@ const shadow = {
 }
 const styles = StyleSheet.create({
     Button:{
-        backgroundColor:'#D8C4B6',
-        borderRadius:10,
+        backgroundColor:'white',
+        borderRadius:4,
         minHeight:180,
         width:160,
         alignItems:'center',
@@ -44,7 +42,6 @@ const styles = StyleSheet.create({
         fontSize:12
     },
     titleRow:{
-        backgroundColor:'#F5EFE7',
         width:110,
         height:35,
         borderRadius:5,
@@ -55,7 +52,7 @@ const styles = StyleSheet.create({
     logoRow:{
         width:140,
         height:140,
-        backgroundColor:'#F5EFE7',
+        backgroundColor:'',
         borderRadius:999,
         alignItems:'center',
         justifyContent:'center'

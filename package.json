@@ -10,6 +10,9 @@
     "lint": "eslint .",
     "clean-android": "cd android && rm -R .gradle && cd app && rm -R build"
   },
+  "rnpm": {
+    "assets": ["./app/fonts"]
+  },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.2",
     "@react-navigation/native": "^6.1.1",

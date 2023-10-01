@@ -1,4 +1,4 @@
-import Constants from "./Constants";
+import Constants from "./Constans";
 import axios from "axios";
 const api = (path, params, methodP, token ) => {
     const headersOptions = {

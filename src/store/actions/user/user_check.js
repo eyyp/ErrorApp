@@ -1,22 +1,22 @@
 import * as types from '../types'
 
-export const UserCheck = (email,password) => {
+export const  UserCheck = (nick,password) => {
     return {
         type:types.USER_CHECK_REQUEST,
-        email,
+        nick,
         password
     }
 }
 
 export function Failed() {
     return {
-      type: types.USER_CHECK_FAILURE,
+      type: types.USER_CHECK_FAILURE
     };
 }
 
 export const enableLoader = () => {
     return {
-        type: types.USER_CHECK_ON_LOADER,
+        type: types.USER_CHECK_ON_LOADER
     }
 }
 
@@ -29,6 +29,6 @@ export const Response = (response) =>{
 
 export function disableLoader() {
     return {
-      type: types.USER_CHECK_DISABLED_LOADER,
+      type: types.USER_CHECK_DISABLED_LOADER
     };
 }

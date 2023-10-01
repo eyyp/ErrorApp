@@ -1,13 +1,10 @@
 import * as types from '../types'
 
-export const UserCreate = (email,nick,password,gender,bio_text,avatar) => {
+export const  UserCreate = (nick,password,avatar) => {
     return {
         type:types.USER_CREATE_REQUEST,
-        email,
         nick,
         password,
-        gender,
-        bio_text,
         avatar
     }
 }

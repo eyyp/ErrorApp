@@ -26,16 +26,14 @@ const styles = StyleSheet.create({
       flexDirection:'row',
       padding:4,
       marginLeft:28,
-      backgroundColor:'#D8C4B6',
+      backgroundColor:'white',
       borderRadius:5,
-
+      marginTop:15
     },
     input:{
-      backgroundColor:'#F5EFE7',
+      backgroundColor:'white',
       width:326,
       height:44,
-      borderWidth:1,
-      borderColor:'#E0E0E0',
       borderRadius:8,
       paddingLeft:40,
       fontSize:16

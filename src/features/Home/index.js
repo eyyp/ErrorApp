@@ -1,147 +1,122 @@
-import { ScrollView, View,StyleSheet,TouchableOpacity,Text,Image,FlatList,Modal} from "react-native";
-import { useEffect, useState} from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import {styles} from './style'
-import HomeTab from "../../component/HomeTab";
-import ShareCard from "../../component/ShareCard";
-import {actions} from '../../store/actions/index'
-import { CategoryButton } from "../../component/CategoryButton/CategoryButton";
-const Home = (props) =>{
-    const [visible,setVisible] = useState(false);
-    const [shareCategorys,setShareCategorys] = useState([]);
-    const [homeVisible,setHomeVisible] = useState(false);
-    const [visibleElegant, setVisibleElegant] = useState(true);
-    const [selectCategory,setSelectCategory] = useState('');
+import { View,Text, ScrollView, Button, StyleSheet, Image,TouchableOpacity, FlatList} from "react-native";
+import TextField from "../../component/TextField";
+import {colors, shadow} from '../../config/index'
+import { useState,useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from '../../store/actions/error/error_all'
+import { avatars } from "../../config/index";
+const Home = (props)=>{
+    const [errors,setErrors] = useState([]);
 
-    const dispatch = useDispatch();
-   
-    const checkElegantReducer = useSelector(state=>state.ChecksElegant);
-    const {checksElegant, checkElegantStatus} = checkElegantReducer;
-
-    const reactUserShareReducer = useSelector(state=>state.ReactShareUser);
-    const {reactShareUser, reactShareUserStatus} = reactUserShareReducer;
-
-    const categoryShareReducer = useSelector(state =>state.ShareCategory);
-    const {shareCategory} = categoryShareReducer;
-
-    const elegantCreateReducer = useSelector(state =>state.ChecksCreate);
-    const {checksElegantCreate} = elegantCreateReducer;   
-
-    const shareCampusReducer = useSelector(state =>state.ShareCampus);
-    const {shareCampus} = shareCampusReducer;
-
-    const userReducer = useSelector(state=>state.UserCheck);
-    const {userCheck, userStatus} = userReducer;
-
-    const elegantReducer = useSelector(state=>state.Elegant);
-    const {elegant,elegantStatus} = elegantReducer;
-
-    const categoryReducer = useSelector(state=>state.Category);
-    const {category, categoryStatus} = categoryReducer;
-
-    const campusReducer = useSelector(state =>state.Campus);
-    const {selectCampus} = campusReducer;
-
-
-    const calculate = () =>{
-        dispatch(actions.CheksElegant(elegant.elegant_id))
-    }
+    const reducer = useSelector(state =>state.ErrorAll)
+    const {errorAll,allStatus} = reducer;
+    const dispatch = useDispatch()
 
     useEffect(()=>{
-        setShareCategorys(shareCampus)
-    },[shareCampus])
+        dispatch(actions.ErrorAll())
+    },[])
 
     useEffect(()=>{
-        setShareCategorys(shareCategory)
-    },[shareCategory])
-
-    useEffect(()=>{
-        dispatch(actions.ReactShareUser(userCheck.user_id))
-        setHomeVisible(true);
-    },[userCheck])
-
-    useEffect(()=>{
-        calculate();
-    },[checksElegantCreate])
-
-    const CategorySelect = (category_id) =>{
-        setSelectCategory(category_id);
-        dispatch(actions.ShareCategory(selectCampus,category_id));
-    }
+        setErrors(errorAll)
+    },[errorAll])
 
     return(
-        <View style={styles.Body}>
-            <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-                {homeVisible && <HomeTab navigation={props.navigation} user={userCheck} onPress={()=>setVisible(true)}/>}
-                <View style={styles.elegateRow}>
-                    <Text style={styles.elegateTitle}>{elegant?.title}</Text>
-                    <View style={styles.elegaButtonRow}>
-                        {visibleElegant ?
-                            <View style={styles.row}>
-                                <TouchableOpacity style={styles.elegateButton} onPress={()=>{setVisibleElegant(false);dispatch(actions.CheksElegantCreate(userCheck.user_id,elegant?.elegant_id,"A"));}}>
-                                    <Text style={styles.elegateButtonText}>{elegant?.nameA}</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.elegateButton} onPress={()=>{setVisibleElegant(false);dispatch(actions.CheksElegantCreate(userCheck.user_id,elegant?.elegant_id,"B"));}}>
-                                    <Text style={styles.elegateButtonText}>{elegant?.nameB}</Text>
-                                </TouchableOpacity>
-                            </View> 
-                            :
-                            <View style={styles.row}>
-                                <View style={styles.elegateConFirst}>
-                                    <Text style={styles.elegateText}>{checksElegant?.A}</Text>
-                                </View>
-                                <View style={styles.elegateConSecond}>
-                                    <Text style={styles.elegateText}>{checksElegant?.B}</Text>
-                                </View>
-                            </View>
-                        }
+        <View style={styles.body}>
+            <TouchableOpacity style={styles.button} onPress={()=>props.navigation.navigate("ErrorCreate")}>
+                <Text style={styles.buttonText}>Yeni Hata Kaydet</Text>
+            </TouchableOpacity>
+            <FlatList 
+                data={errors}
+                numColumns={1} 
+                renderItem={({item}) => <View style={styles.card}>
+                <View style={styles.userRow}>
+                    <Image 
+                        source={avatars[item.user.avatar].url}
+                        style={{width:50,height:50}}
+                    />
+                    <Text style={styles.nickText}>{item.user.nick}</Text>
+                    <Text style={styles.codeText}>Error Code: {item.error.code}</Text>
                     </View>
-                    {!visibleElegant && 
-                        <View style={styles.elegantInfoRow}>
-                            <Text style={styles.elegantText}>{elegant?.nameA}</Text>  
-                            <Text style={styles.elegantTextSecond}>{elegant?.nameB}</Text>
-                        </View>
-                    }     
-                </View>
-                {shareCategorys.map((item,index) =><ShareCard item={item} reactUser={reactShareUser} reset={()=>{dispatch(actions.ReactShareUser(userCheck.user_id));dispatch(actions.ShareCampus(selectCampus))}} key={index} index={index} navigation={props.navigation} />)}
-            </ScrollView>
-            <Modal transparent={true} visible={visible} animationIn="slideInLeft"
-        animationOut="slideOutRight">
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modalBody}>
-                            <View style={styles.row}>
-                                <Text style={styles.modalTitle}>Konular</Text>
-                            </View>
-                            <TouchableOpacity style={[styles.allButton,{backgroundColor:selectCategory == 'all' ? '#4F709C' :'#F5EFE7'}]} onPress={()=>{setSelectCategory('all');dispatch(actions.ShareCampus(selectCampus))}}>
-                                    <Image 
-                                        style={styles.buttonImage}
-                                        source={{uri:'http://yonetimpanel.com/admin/uploads/package.png'}}
-                                    />
-                                    <Text style={[styles.modalButtonTitle,{color:selectCategory == 'all' ? 'white' :'black'}]}>Tümü</Text>
-                            </TouchableOpacity>
-                            <FlatList 
-                                data={category}
-                                numColumns={2} 
-                                renderItem={({item}) =>
-                                <TouchableOpacity style={[styles.modalButton,{backgroundColor:selectCategory == item.category_id ? '#4F709C' :'#F5EFE7'}]} onPress={()=>CategorySelect(item.category_id)}>
-                                    <Image 
-                                        style={styles.buttonImage}
-                                        source={{uri:'http://yonetimpanel.com/admin/uploads/' + item.icon}}
-                                    />
-                                    <Text style={[styles.modalButtonTitle,{color:selectCategory == item.category_id ? 'white' :'black'}]}>{item.category_name}</Text>
-                                </TouchableOpacity>}
-                                key={(item) => item.category_id} 
-                                keyExtractor={item => item.category_id} 
-                                contentContainerStyle={styles.listView} 
+                    <Text style={styles.text}> {item.error.title}</Text>
+                    <Text style={styles.text}> {item.error.solution}</Text>
+                        <TouchableOpacity style={styles.editButton} onPress={()=>props.navigation.navigate("ErrorUpdate",{error:item.error})}>
+                            <Image
+                                style={styles.edit}
+                                source={require('../../assets/images/edit.png')}
                             />
-                            <TouchableOpacity style={styles.okButton} onPress={()=>setVisible(false)}>
-                                <Text style={[styles.modalButtonTitle,{color:'black'}]}>Tamam</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-            </Modal>
+                        </TouchableOpacity>
+                </View>}
+                key={(item) => item.error.error_id} 
+                keyExtractor={item => item.error.error_id} 
+                contentContainerStyle={styles.content} 
+            />
         </View>
-    )
+    );   
 }
+
+const styles = StyleSheet.create({
+    body:{
+        flex:1,
+        backgroundColor:'#F7F6FB'
+    },  
+    content: {
+        flex:1,
+        paddingVertical: '5%',
+        paddingHorizontal: '5%',
+    },
+    edit:{
+        width:30,
+        height:30,
+        marginLeft:20
+    },
+    delete:{
+        width:30,
+        height:30,
+    },
+    card:{
+        backgroundColor:'white',
+        width:'100%',
+        minHeight:'30%',
+        borderRadius:4,
+        ...shadow,
+        padding:15,
+        marginBottom:'5%'
+    },
+    editButton:{
+        alignSelf:'flex-end',
+    },
+    userRow:{
+        flexDirection:'row'
+    },
+    nickText:{
+        fontSize:16,
+        alignSelf:'center',
+        marginLeft:20,
+        fontWeight:'700'
+    },
+    codeText:{
+        fontSize:14,
+        alignSelf:'center',
+        marginLeft:50,
+
+    },
+    text:{
+        margin:5,marginTop:20
+    },
+    button:{
+        backgroundColor:colors.primary,
+        width:'90%',
+        height:50,
+        borderRadius:4,
+        alignSelf:'center',
+        marginTop:20,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    buttonText:{
+        color:'white',
+        fontSize:16
+    }
+  })
 
 export default Home;

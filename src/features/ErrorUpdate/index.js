@@ -3,63 +3,75 @@ import TextField from "../../component/TextField";
 import {colors} from '../../config/index'
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from '../../store/actions/user/user_check'
-const Login = (props)=>{
-    const [nick,setNick] = useState();
-    const [password,setPassword] = useState();
-    const [message,setMessage] = useState('');
-    const reducer = useSelector(state =>state.UserCheck)
-    const {userCheck,userStatus} = reducer;
+import * as actions from '../../store/actions/error/error_update'
+const ErrorUpdate = (props)=>{
+    const [code,setCode] = useState();
+    const [title,setTitle] = useState();
+    const [solution,setSolution] = useState();
+    const [message,setMessage] = useState(null);
+    const errorReducer = useSelector(state =>state.ErrorUpdate)
+    const {errorUpdate,updateStatus} = errorReducer;
     const dispatch = useDispatch()
 
-    const login = () =>{
-        dispatch(actions.UserCheck(nick,password))
+    const update = () =>{
+        dispatch(actions.ErrorUpdate(props.route.params.error.error_id,code,title,solution))
     }
 
     useEffect(()=>{
-        setMessage('');
+        setCode(props.route.params.error.code)
+        setTitle(props.route.params.error.title)
+        setSolution(props.route.params.error.solution)
+        setMessage(null);
     },[])
 
     useEffect(()=>{
-        if(userStatus =='response'){
+        if(updateStatus == 'response'){
             props.navigation.navigate("Home")
         }
         else{
-            if(userStatus =='failure'){
-                setMessage('nick veya şifre hatalı')
+            if(updateStatus =='failure'){
+                setMessage('İşlem başarısız')
             }
         }
-        console.log(userStatus)
-    },[userCheck])
+    },[errorUpdate])
     return(
         <ScrollView contentContainerStyle={styles.content}>
-            <View style={{borderRadius:10,backgroundColor:'white',width:'100%',height:'100%',padding:'5%'}}>
+            <View style={styles.container}>
+                <TouchableOpacity style={styles.backButton} onPress={()=>props.navigation.goBack()}>
+                    <Image 
+                        style={styles.backArrow}
+                        source={require('../../assets/icon/left.png')}
+                    />
+                </TouchableOpacity>
                 <Image 
                     style={styles.logo}
                     source={require('../../assets/images/logo.png')}
                 />
-                <Text style={styles.title}>Error Solution</Text>
-                <Text style={styles.lower}>Hataların Çözüm Merkezi</Text>
+                <Text style={styles.title}>Hata Kaydet</Text>
+                <Text style={styles.lower}>Haydi şu iğrenç hatadan kurtulalım</Text>
                 <TextField
                     style={styles.textField}
-                    value={nick}
-                    label="Kullanıcı Adı"
+                    value={code}
+                    label="Kod"
                     errorText={message}
-                    onChangeText={(text) => setNick(text)}
+                    onChangeText={(text) => setCode(text)}
                 />
                 <TextField
                     style={styles.textField}
-                    value={password}
-                    label="Şifre"
+                    value={title}
+                    label="Başlık"
                     errorText={message}
-                    onChangeText={(text) => setPassword(text)}
+                    onChangeText={(text) => setTitle(text)}
                 />
-                <TouchableOpacity style={styles.button} onPress={login}>
-                    <Text style={styles.buttonText}>Giriş</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.signupButton} onPress={()=>props.navigation.navigate('Signup')}>
-                    <Text style={styles.or}>or</Text>
-                    <Text style={styles.signup}>Üye Ol</Text>
+                <TextField
+                    style={styles.textField}
+                    value={solution}
+                    label="Çözüm"
+                    errorText={message}
+                    onChangeText={(text) => setSolution(text)}
+                />
+                <TouchableOpacity style={styles.button} onPress={update}>
+                    <Text style={styles.buttonText}>Kaydet</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>  
@@ -73,11 +85,23 @@ const styles = StyleSheet.create({
       flex:1,
       backgroundColor:'#F7F6FB'
     },
+    container:{
+        borderRadius:10,
+        backgroundColor:'white',
+        width:'100%',
+        height:'100%',
+        padding:'5%'
+    },
     title: {
       fontFamily: 'Gilroy-Bold',
       color: 'black',
       fontSize: 32,
       marginLeft:'24%',
+    },
+    backButton:{
+        width:'8%',
+        height:'4%',
+        marginBottom:'5%',
     },
     lower: {
       fontFamily: 'Gilroy-Bold',
@@ -89,24 +113,8 @@ const styles = StyleSheet.create({
       marginBottom: '5%',
     },
     backArrow:{
-        width:'6%',
-        height:'3%',
-        marginBottom:'5%'
-    },
-    signup:{
-        color:colors.primary,
-        fontSize:20,
-        alignSelf:'center'
-    },
-    signupButton:{
-        marginTop:'10%',
-        alignSelf:'center'
-    },
-    or:{
-        color:'gray',
-        fontSize:16,
-        marginBottom:'5%',
-        alignSelf:'center'
+        width:'100%',
+        height:'100%',
     },
     line:{
         width:'100%',
@@ -164,4 +172,4 @@ const styles = StyleSheet.create({
     }
   })
 
-export default Login;
+export default ErrorUpdate;
